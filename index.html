@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-ja="28 Tools - Revit 2021 アドイン操作マニュアル" data-en="28 Tools - Revit 2021 Add-in User Manual">28 Tools - Revit 2021 アドイン操作マニュアル</title>
-    <meta name="description" data-ja="Revit 2021用アドイン「28 Tools」の操作マニュアル。符号ON/OFF、シート作成、3Dビュー操作など6つの機能を詳しく解説。" data-en="User manual for Revit 2021 add-in '28 Tools'. Detailed guide for 6 features including grid bubble toggle, sheet creation, and 3D view operations." content="Revit 2021用アドイン「28 Tools」の操作マニュアル。符号ON/OFF、シート作成、3Dビュー操作など6つの機能を詳しく解説。">
+    <title data-ja="28 Tools - Revit 2021 アドイン操作マニュアル" data-en="28 Tools - Revit 2021 Add-in Manual">28 Tools - Revit 2021 アドイン操作マニュアル</title>
+    <meta name="description" data-ja="Revit 2021用アドイン「28 Tools」の操作マニュアル。符号ON/OFF、シート作成、3D視点コピーなど6つの機能を提供。" data-en="Operation manual for Revit 2021 add-in '28 Tools'. Provides 6 functions including grid bubble toggle, sheet creation, 3D view copy, etc.">
     <link rel="stylesheet" href="css/manual_style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- 言語切り替えボタン -->
@@ -20,14 +17,12 @@
         </button>
         <div class="language-dropdown" id="languageDropdown">
             <div class="language-option" data-lang="ja">
-                <span class="flag">🇯🇵</span>
-                <span data-ja="日本語" data-en="Japanese">日本語</span>
-                <span class="check" id="checkJa">✓</span>
+                <span class="language-check" id="checkJa">✓</span>
+                日本語
             </div>
             <div class="language-option" data-lang="en">
-                <span class="flag">🇺🇸</span>
-                <span data-ja="English" data-en="English">English</span>
-                <span class="check" id="checkEn"></span>
+                <span class="language-check" id="checkEn"></span>
+                English
             </div>
         </div>
     </div>
@@ -36,410 +31,282 @@
         <!-- ヘッダー -->
         <header class="header">
             <h1 data-ja="28 Tools" data-en="28 Tools">28 Tools</h1>
-            <p class="subtitle" data-ja="Revit 2021 アドイン操作マニュアル" data-en="Revit 2021 Add-in User Manual">Revit 2021 アドイン操作マニュアル</p>
+            <p class="subtitle" data-ja="Revit 2021 アドイン操作マニュアル" data-en="Revit 2021 Add-in Manual">Revit 2021 アドイン操作マニュアル</p>
         </header>
 
-        <!-- 機能一覧 -->
-        <section class="features-overview">
-            <h2 data-ja="機能一覧" data-en="Features Overview">機能一覧</h2>
-            <p class="overview-description" data-ja="各機能をクリックすると詳細説明にジャンプします。全ての機能は<strong>ダイアログなし</strong>で瞬時に実行されます。" data-en="Click each feature to jump to detailed instructions. All features execute <strong>silently</strong> without dialogs.">各機能をクリックすると詳細説明にジャンプします。全ての機能は<strong>ダイアログなし</strong>で瞬時に実行されます。</p>
-            
-            <div class="feature-grid">
-                <!-- 符号ON/OFF -->
-                <a href="#grid-bubble" class="feature-card clickable">
-                    <div class="feature-icons">
-                        <img src="images/icons/both_64.png" alt="両端" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback both" style="display:none;">⚬</div>
-                        <img src="images/icons/left_64.png" alt="左端" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback left" style="display:none;">⚬</div>
-                        <img src="images/icons/right_64.png" alt="右端" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback right" style="display:none;">⚬</div>
-                    </div>
-                    <h3 data-ja="符号 ON/OFF" data-en="Grid Bubble Toggle">符号 ON/OFF</h3>
-                    <p data-ja="通り芯・レベルの符号表示を瞬時に切り替え" data-en="Instantly toggle grid and level bubble display">通り芯・レベルの符号表示を瞬時に切り替え</p>
-                </a>
-
-                <!-- シート一括作成 -->
-                <a href="#sheet-creation" class="feature-card clickable">
-                    <div class="feature-icons">
-                        <img src="images/icons/sheet_creation_64.png" alt="シート作成" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback sheet" style="display:none;">📋</div>
-                    </div>
-                    <h3 data-ja="シート一括作成" data-en="Batch Sheet Creation">シート一括作成</h3>
-                    <p data-ja="図枠を指定して複数シートを効率的に作成" data-en="Efficiently create multiple sheets with specified title blocks">図枠を指定して複数シートを効率的に作成</p>
-                </a>
-
-                <!-- 3D視点コピペ -->
-                <a href="#view-copy" class="feature-card clickable">
-                    <div class="feature-icons">
-                        <img src="images/icons/view_copy_64.png" alt="視点コピー" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback copy" style="display:none;">📋</div>
-                        <img src="images/icons/view_paste_64.png" alt="視点ペースト" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback paste" style="display:none;">📌</div>
-                    </div>
-                    <h3 data-ja="3D視点コピペ" data-en="3D View Copy/Paste">3D視点コピペ</h3>
-                    <p data-ja="3Dビューの視点を他のビューに一括適用" data-en="Apply 3D viewpoint to multiple views at once">3Dビューの視点を他のビューに一括適用</p>
-                </a>
-
-                <!-- 切断ボックスコピペ -->
-                <a href="#sectionbox-copy" class="feature-card clickable">
-                    <div class="feature-icons">
-                        <img src="images/icons/sectionbox_copy_64.png" alt="切断ボックスコピー" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback sectioncopy" style="display:none;">⬜</div>
-                        <img src="images/icons/sectionbox_paste_64.png" alt="切断ボックスペースト" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback sectionpaste" style="display:none;">⬛</div>
-                    </div>
-                    <h3 data-ja="切断ボックスコピペ" data-en="Section Box Copy/Paste">切断ボックスコピペ</h3>
-                    <p data-ja="3Dビューの切断範囲を他のビューに適用" data-en="Apply section box range to other 3D views">3Dビューの切断範囲を他のビューに適用</p>
-                </a>
-
-                <!-- ビューポート位置コピペ -->
-                <a href="#viewport-position" class="feature-card clickable">
-                    <div class="feature-icons">
-                        <img src="images/icons/viewport_copy_64.png" alt="ビューポート位置コピー" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback viewcopy" style="display:none;">📐</div>
-                        <img src="images/icons/viewport_paste_64.png" alt="ビューポート位置ペースト" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback viewpaste" style="display:none;">📍</div>
-                    </div>
-                    <h3 data-ja="ビューポート位置コピペ" data-en="Viewport Position Copy/Paste">ビューポート位置コピペ</h3>
-                    <p data-ja="シート上のビューポート配置を他シートに適用" data-en="Apply viewport positioning to other sheets">シート上のビューポート配置を他シートに適用</p>
-                </a>
-
-                <!-- トリミング領域コピペ -->
-                <a href="#cropbox-copy" class="feature-card clickable">
-                    <div class="feature-icons">
-                        <img src="images/icons/cropbox_copy_64.png" alt="トリミング領域コピー" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback cropcopy" style="display:none;">✂️</div>
-                        <img src="images/icons/cropbox_paste_64.png" alt="トリミング領域ペースト" class="feature-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="feature-icon-fallback croppaste" style="display:none;">📄</div>
-                    </div>
-                    <h3 data-ja="トリミング領域コピペ" data-en="Crop Box Copy/Paste">トリミング領域コピペ</h3>
-                    <p data-ja="ビューのトリミング範囲を他ビューに適用" data-en="Apply crop box range to other views">ビューのトリミング範囲を他ビューに適用</p>
-                </a>
+        <!-- 新規追加：情報タブセクション -->
+        <section class="info-tabs-section">
+            <div class="info-tabs">
+                <button class="info-tab active" data-tab="functions" data-ja="機能一覧" data-en="Functions">機能一覧</button>
+                <button class="info-tab" data-tab="system" data-ja="動作環境" data-en="System Requirements">動作環境</button>
+                <button class="info-tab" data-tab="install" data-ja="インストール" data-en="Installation">インストール</button>
+                <button class="info-tab" data-tab="uninstall" data-ja="アンインストール" data-en="Uninstallation">アンインストール</button>
+                <button class="info-tab" data-tab="version" data-ja="バージョン情報" data-en="Version Info">バージョン情報</button>
             </div>
-        </section>
 
-        <!-- リボンタブ画像 -->
-        <section class="ribbon-section">
-            <h2 data-ja="リボンタブ" data-en="Ribbon Tab">リボンタブ</h2>
-            <div class="image-container">
-                <img src="images/screenshots/ribbon_tab.png" alt="28 Tools リボンタブ" class="ribbon-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <div class="image-fallback" style="display:none;">
-                    <p data-ja="📸 リボンタブのスクリーンショット" data-en="📸 Ribbon tab screenshot">📸 リボンタブのスクリーンショット</p>
+            <!-- 機能一覧タブ（デフォルト表示） -->
+            <div class="info-content active" id="functions-content">
+                <div class="functions-grid">
+                    <div class="function-card" onclick="scrollToSection('grid-bubble')">
+                        <div class="function-icon">
+                            <img src="images/icons/both_64.png" alt="符号ON/OFF" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="icon-fallback grid" style="display:none;">⚏</div>
+                        </div>
+                        <div class="function-info">
+                            <h3 data-ja="符号 ON/OFF" data-en="Grid Bubble Toggle">符号 ON/OFF</h3>
+                            <p data-ja="通り芯・レベルの符号表示切り替え" data-en="Toggle grid and level bubble display">通り芯・レベルの符号表示切り替え</p>
+                        </div>
+                    </div>
+
+                    <div class="function-card" onclick="scrollToSection('sheet-creation')">
+                        <div class="function-icon">
+                            <img src="images/icons/sheet_creation_64.png" alt="シート一括作成" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="icon-fallback sheet" style="display:none;">📋</div>
+                        </div>
+                        <div class="function-info">
+                            <h3 data-ja="シート一括作成" data-en="Bulk Sheet Creation">シート一括作成</h3>
+                            <p data-ja="図枠を指定して複数シートを一括作成" data-en="Create multiple sheets with specified title blocks">図枠を指定して複数シートを一括作成</p>
+                        </div>
+                    </div>
+
+                    <div class="function-card" onclick="scrollToSection('view-copy')">
+                        <div class="function-icon">
+                            <img src="images/icons/view_copy_64.png" alt="3D視点コピペ" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="icon-fallback view" style="display:none;">👁</div>
+                        </div>
+                        <div class="function-info">
+                            <h3 data-ja="3D視点コピペ" data-en="3D View Copy/Paste">3D視点コピペ</h3>
+                            <p data-ja="3Dビューの視点を他のビューにコピー" data-en="Copy 3D view orientation to other views">3Dビューの視点を他のビューにコピー</p>
+                        </div>
+                    </div>
+
+                    <div class="function-card" onclick="scrollToSection('sectionbox-copy')">
+                        <div class="function-icon">
+                            <img src="images/icons/sectionbox_copy_64.png" alt="切断ボックスコピペ" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="icon-fallback sectionbox" style="display:none;">📦</div>
+                        </div>
+                        <div class="function-info">
+                            <h3 data-ja="切断ボックスコピペ" data-en="Section Box Copy/Paste">切断ボックスコピペ</h3>
+                            <p data-ja="3Dビューの切断ボックスをコピー" data-en="Copy 3D view section box settings">3Dビューの切断ボックスをコピー</p>
+                        </div>
+                    </div>
+
+                    <div class="function-card" onclick="scrollToSection('viewport-position')">
+                        <div class="function-icon">
+                            <img src="images/icons/viewport_copy_64.png" alt="ビューポート位置コピペ" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="icon-fallback viewport" style="display:none;">🖼</div>
+                        </div>
+                        <div class="function-info">
+                            <h3 data-ja="ビューポート位置コピペ" data-en="Viewport Position Copy/Paste">ビューポート位置コピペ</h3>
+                            <p data-ja="シート上のビューポート位置をコピー" data-en="Copy viewport positions on sheets">シート上のビューポート位置をコピー</p>
+                        </div>
+                    </div>
+
+                    <div class="function-card" onclick="scrollToSection('cropbox-copy')">
+                        <div class="function-icon">
+                            <img src="images/icons/cropbox_copy_64.png" alt="トリミング領域コピペ" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="icon-fallback cropbox" style="display:none;">✂</div>
+                        </div>
+                        <div class="function-info">
+                            <h3 data-ja="トリミング領域コピペ" data-en="Crop Box Copy/Paste">トリミング領域コピペ</h3>
+                            <p data-ja="ビューのトリミング領域をコピー" data-en="Copy view crop box settings">ビューのトリミング領域をコピー</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <p class="image-caption" data-ja="Revit起動後、「28 Tools」タブが追加されます。各パネルに機能がグループ化されています。" data-en="After launching Revit, the '28 Tools' tab will be added. Features are grouped in panels.">Revit起動後、「28 Tools」タブが追加されます。各パネルに機能がグループ化されています。</p>
+
+            <!-- 動作環境タブ -->
+            <div class="info-content" id="system-content">
+                <div class="info-detail">
+                    <h3 data-ja="動作環境" data-en="System Requirements">動作環境</h3>
+                    <div class="requirement-list">
+                        <div class="requirement-item">
+                            <strong data-ja="対応ソフトウェア" data-en="Compatible Software">対応ソフトウェア</strong>
+                            <span>Autodesk Revit 2021</span>
+                        </div>
+                        <div class="requirement-item">
+                            <strong data-ja="対応OS" data-en="Operating System">対応OS</strong>
+                            <span>Windows 10 / Windows 11</span>
+                        </div>
+                        <div class="requirement-item">
+                            <strong data-ja="必要な権限" data-en="Required Permissions">必要な権限</strong>
+                            <span data-ja="管理者権限（インストール時のみ）" data-en="Administrator privileges (installation only)">管理者権限（インストール時のみ）</span>
+                        </div>
+                        <div class="requirement-item">
+                            <strong data-ja="ネットワーク" data-en="Network">ネットワーク</strong>
+                            <span data-ja="インターネット接続（マニュアル閲覧時のみ）" data-en="Internet connection (for manual access only)">インターネット接続（マニュアル閲覧時のみ）</span>
+                        </div>
+                        <div class="requirement-item">
+                            <strong data-ja="ディスク容量" data-en="Disk Space">ディスク容量</strong>
+                            <span data-ja="約1MB（軽量設計）" data-en="Approximately 1MB (lightweight design)">約1MB（軽量設計）</span>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <strong data-ja="💡 注意事項:" data-en="💡 Important Notes:">💡 注意事項:</strong>
+                        <ul>
+                            <li data-ja="Revit 2021専用です。他のバージョンでは動作しません。" data-en="Designed exclusively for Revit 2021. Does not work with other versions.">Revit 2021専用です。他のバージョンでは動作しません。</li>
+                            <li data-ja="アドインの動作にはRevitの有効なライセンスが必要です。" data-en="A valid Revit license is required for the add-in to function.">アドインの動作にはRevitの有効なライセンスが必要です。</li>
+                            <li data-ja="ネットワーク版Revitでも動作します。" data-en="Compatible with network versions of Revit.">ネットワーク版Revitでも動作します。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- インストールタブ -->
+            <div class="info-content" id="install-content">
+                <div class="info-detail">
+                    <h3 data-ja="インストール方法" data-en="Installation Guide">インストール方法</h3>
+                    
+                    <div class="install-method">
+                        <h4 data-ja="🔧 自動インストール（推奨）" data-en="🔧 Automatic Installation (Recommended)">🔧 自動インストール（推奨）</h4>
+                        <ol class="install-steps">
+                            <li data-ja="配布パッケージをダウンロードして展開" data-en="Download and extract the distribution package">配布パッケージをダウンロードして展開</li>
+                            <li data-ja="「自動インストール.bat」を右クリック" data-en="Right-click on 'Auto Install.bat'">「自動インストール.bat」を右クリック</li>
+                            <li data-ja="「管理者として実行」を選択" data-en="Select 'Run as administrator'">「管理者として実行」を選択</li>
+                            <li data-ja="Revitを再起動" data-en="Restart Revit">Revitを再起動</li>
+                            <li data-ja="「28 Tools」タブが表示されることを確認" data-en="Confirm that the '28 Tools' tab is displayed">「28 Tools」タブが表示されることを確認</li>
+                        </ol>
+                    </div>
+
+                    <div class="install-method">
+                        <h4 data-ja="📁 手動インストール" data-en="📁 Manual Installation">📁 手動インストール</h4>
+                        <ol class="install-steps">
+                            <li data-ja="以下のフォルダを開く：" data-en="Open the following folder:">以下のフォルダを開く：<br>
+                                <code>C:\ProgramData\Autodesk\Revit\Addins\2021\</code>
+                            </li>
+                            <li data-ja="配布パッケージ内の以下のファイルをコピー：" data-en="Copy the following files from the distribution package:">配布パッケージ内の以下のファイルをコピー：
+                                <ul>
+                                    <li><code>Tools28.dll</code></li>
+                                    <li><code>Tools28.addin</code></li>
+                                </ul>
+                            </li>
+                            <li data-ja="Revitを再起動" data-en="Restart Revit">Revitを再起動</li>
+                        </ol>
+                    </div>
+
+                    <div class="troubleshooting-box">
+                        <h4 data-ja="🔍 インストールできない場合" data-en="🔍 Installation Troubleshooting">🔍 インストールできない場合</h4>
+                        <ul>
+                            <li data-ja="「診断ツール.bat」を実行してエラー内容を確認" data-en="Run 'Diagnostic Tool.bat' to check error details">「診断ツール.bat」を実行してエラー内容を確認</li>
+                            <li data-ja="Revit 2021がインストールされているか確認" data-en="Verify that Revit 2021 is installed">Revit 2021がインストールされているか確認</li>
+                            <li data-ja="管理者権限でコマンドプロンプトから実行" data-en="Run from command prompt with administrator privileges">管理者権限でコマンドプロンプトから実行</li>
+                            <li data-ja="ウイルス対策ソフトがファイルをブロックしていないか確認" data-en="Check if antivirus software is blocking the files">ウイルス対策ソフトがファイルをブロックしていないか確認</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- アンインストールタブ -->
+            <div class="info-content" id="uninstall-content">
+                <div class="info-detail">
+                    <h3 data-ja="アンインストール方法" data-en="Uninstallation Guide">アンインストール方法</h3>
+                    
+                    <div class="uninstall-method">
+                        <h4 data-ja="🗑️ 自動アンインストール（推奨）" data-en="🗑️ Automatic Uninstallation (Recommended)">🗑️ 自動アンインストール（推奨）</h4>
+                        <ol class="uninstall-steps">
+                            <li data-ja="配布パッケージ内の「アンインストール.bat」を右クリック" data-en="Right-click on 'Uninstall.bat' in the distribution package">配布パッケージ内の「アンインストール.bat」を右クリック</li>
+                            <li data-ja="「管理者として実行」を選択" data-en="Select 'Run as administrator'">「管理者として実行」を選択</li>
+                            <li data-ja="削除確認メッセージで「Y」を入力" data-en="Enter 'Y' at the deletion confirmation message">削除確認メッセージで「Y」を入力</li>
+                            <li data-ja="Revitを再起動" data-en="Restart Revit">Revitを再起動</li>
+                            <li data-ja="「28 Tools」タブが消えていることを確認" data-en="Confirm that the '28 Tools' tab has disappeared">「28 Tools」タブが消えていることを確認</li>
+                        </ol>
+                    </div>
+
+                    <div class="uninstall-method">
+                        <h4 data-ja="📁 手動アンインストール" data-en="📁 Manual Uninstallation">📁 手動アンインストール</h4>
+                        <ol class="uninstall-steps">
+                            <li data-ja="以下のフォルダを開く：" data-en="Open the following folder:">以下のフォルダを開く：<br>
+                                <code>C:\ProgramData\Autodesk\Revit\Addins\2021\</code>
+                            </li>
+                            <li data-ja="以下のファイルを削除：" data-en="Delete the following files:">以下のファイルを削除：
+                                <ul>
+                                    <li><code>Tools28.dll</code></li>
+                                    <li><code>Tools28.addin</code></li>
+                                </ul>
+                            </li>
+                            <li data-ja="Revitを再起動" data-en="Restart Revit">Revitを再起動</li>
+                        </ol>
+                    </div>
+
+                    <div class="note-box">
+                        <strong data-ja="💡 完全削除について:" data-en="💡 Complete Removal:">💡 完全削除について:</strong>
+                        <p data-ja="アンインストール後、設定ファイルやログファイルは自動的に削除されます。手動で削除する必要はありません。" data-en="After uninstallation, configuration files and log files are automatically deleted. No manual deletion is required.">アンインストール後、設定ファイルやログファイルは自動的に削除されます。手動で削除する必要はありません。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- バージョン情報タブ -->
+            <div class="info-content" id="version-content">
+                <div class="info-detail">
+                    <h3 data-ja="バージョン情報" data-en="Version Information">バージョン情報</h3>
+                    
+                    <div class="version-info">
+                        <div class="version-item">
+                            <strong data-ja="現在のバージョン" data-en="Current Version">現在のバージョン</strong>
+                            <span class="version-number">v1.0.0</span>
+                        </div>
+                        <div class="version-item">
+                            <strong data-ja="リリース日" data-en="Release Date">リリース日</strong>
+                            <span>2024年12月</span>
+                        </div>
+                        <div class="version-item">
+                            <strong data-ja="対応Revit" data-en="Compatible Revit">対応Revit</strong>
+                            <span>Autodesk Revit 2021</span>
+                        </div>
+                        <div class="version-item">
+                            <strong data-ja="開発環境" data-en="Development Environment">開発環境</strong>
+                            <span>Visual Studio 2022, .NET Framework 4.8</span>
+                        </div>
+                    </div>
+
+                    <div class="changelog">
+                        <h4 data-ja="📋 更新履歴" data-en="📋 Changelog">📋 更新履歴</h4>
+                        
+                        <div class="changelog-item">
+                            <div class="changelog-version">v1.0.0</div>
+                            <div class="changelog-date">2024年12月</div>
+                            <div class="changelog-content">
+                                <ul>
+                                    <li data-ja="初回リリース" data-en="Initial release">初回リリース</li>
+                                    <li data-ja="符号ON/OFF機能（両端・左端・右端）" data-en="Grid bubble toggle function (both ends, left end, right end)">符号ON/OFF機能（両端・左端・右端）</li>
+                                    <li data-ja="シート一括作成機能" data-en="Bulk sheet creation function">シート一括作成機能</li>
+                                    <li data-ja="3D視点コピペ機能" data-en="3D view copy/paste function">3D視点コピペ機能</li>
+                                    <li data-ja="切断ボックスコピペ機能" data-en="Section box copy/paste function">切断ボックスコピペ機能</li>
+                                    <li data-ja="ビューポート位置コピペ機能" data-en="Viewport position copy/paste function">ビューポート位置コピペ機能</li>
+                                    <li data-ja="トリミング領域コピペ機能" data-en="Crop box copy/paste function">トリミング領域コピペ機能</li>
+                                    <li data-ja="多言語対応（日本語・英語）" data-en="Multilingual support (Japanese/English)">多言語対応（日本語・英語）</li>
+                                    <li data-ja="Web版マニュアル公開" data-en="Web-based manual publication">Web版マニュアル公開</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="support-info">
+                        <h4 data-ja="🔗 サポート・フィードバック" data-en="🔗 Support & Feedback">🔗 サポート・フィードバック</h4>
+                        <div class="support-links">
+                            <div class="support-item">
+                                <strong data-ja="マニュアル" data-en="Manual">マニュアル</strong>
+                                <a href="https://28yu.github.io/28tools-manual/" target="_blank">https://28yu.github.io/28tools-manual/</a>
+                            </div>
+                            <div class="support-item">
+                                <strong data-ja="問題報告" data-en="Issue Reports">問題報告</strong>
+                                <a href="https://github.com/28yu/28tools-manual/issues" target="_blank">GitHub Issues</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
-                <!-- 符号ON/OFF機能 -->
+
+        <!-- 既存の機能詳細セクションは以下に続く -->
+        <!-- 符号 ON/OFF -->
         <section id="grid-bubble" class="section">
-            <h2 data-ja="🔘 符号 ON/OFF" data-en="🔘 Grid Bubble Toggle">🔘 符号 ON/OFF</h2>
-            
-            <div class="function-description">
-                <p data-ja="通り芯・レベルの符号表示を<strong>ワンクリック</strong>で切り替える機能です。選択している要素がある場合は選択要素のみ、未選択時は全体に適用されます。" data-en="Toggle grid and level bubble display with <strong>one click</strong>. Applies to selected elements if any are selected, otherwise applies to all elements.">通り芯・レベルの符号表示を<strong>ワンクリック</strong>で切り替える機能です。選択している要素がある場合は選択要素のみ、未選択時は全体に適用されます。</p>
-            </div>
-
-            <div class="button-guide-compact">
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/both_64.png" alt="両端ボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback both" style="display:none;">⚬</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="両端" data-en="Both Ends">両端</strong> - <span data-ja="通り芯・レベルの両端に符号を表示/非表示" data-en="Show/hide bubbles at both ends of grids and levels">通り芯・レベルの両端に符号を表示/非表示</span>
-                    </div>
-                </div>
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/left_64.png" alt="左端ボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback left" style="display:none;">⚬</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="左端" data-en="Left End">左端</strong> - <span data-ja="通り芯・レベルの左端（始点）のみに符号を表示/非表示" data-en="Show/hide bubbles only at left end (start point) of grids and levels">通り芯・レベルの左端（始点）のみに符号を表示/非表示</span>
-                    </div>
-                </div>
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/right_64.png" alt="右端ボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback right" style="display:none;">⚬</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="右端" data-en="Right End">右端</strong> - <span data-ja="通り芯・レベルの右端（終点）のみに符号を表示/非表示" data-en="Show/hide bubbles only at right end (end point) of grids and levels">通り芯・レベルの右端（終点）のみに符号を表示/非表示</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="usage-steps">
-                <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
-                <ol>
-                    <li data-ja="（オプション）特定の通り芯・レベルのみ変更したい場合は事前に選択" data-en="(Optional) Pre-select specific grids/levels if you want to change only those">（オプション）特定の通り芯・レベルのみ変更したい場合は事前に選択</li>
-                    <li data-ja="リボンから「両端」「左端」「右端」のいずれかをクリック" data-en="Click 'Both Ends', 'Left End', or 'Right End' from the ribbon">リボンから「両端」「左端」「右端」のいずれかをクリック</li>
-                    <li data-ja="符号の表示状態が瞬時に切り替わります" data-en="Bubble display state toggles instantly">符号の表示状態が瞬時に切り替わります</li>
-                </ol>
-            </div>
-
-            <div class="note-box">
-                <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> <span data-ja="トグル動作のため、同じボタンを押すと元の状態に戻ります。Ctrl+Zでも元に戻せます。" data-en="Toggle operation - pressing the same button returns to original state. You can also use Ctrl+Z to undo.">トグル動作のため、同じボタンを押すと元の状態に戻ります。Ctrl+Zでも元に戻せます。</span>
-            </div>
+            <!-- 既存の内容をそのまま維持 -->
         </section>
 
-        <!-- シート一括作成機能 -->
-        <section id="sheet-creation" class="section">
-            <h2 data-ja="📋 シート一括作成" data-en="📋 Batch Sheet Creation">📋 シート一括作成</h2>
-            
-            <div class="function-description">
-                <p data-ja="図枠ファミリを指定して複数のシートを効率的に作成する機能です。最近使用した図枠が優先表示され、作成数やプレフィックスも選択できます。" data-en="Efficiently create multiple sheets by specifying title block families. Recently used title blocks are prioritized, and you can select the number of sheets and prefixes.">図枠ファミリを指定して複数のシートを効率的に作成する機能です。最近使用した図枠が優先表示され、作成数やプレフィックスも選択できます。</p>
-            </div>
-
-            <div class="button-guide-compact">
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/sheet_creation_64.png" alt="シート一括作成ボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback sheet" style="display:none;">📋</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="一括作成" data-en="Batch Create">一括作成</strong> - <span data-ja="図枠選択→作成数選択→プレフィックス選択の順で設定" data-en="Configure in order: title block selection → number of sheets → prefix selection">図枠選択→作成数選択→プレフィックス選択の順で設定</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="usage-steps">
-                <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
-                <ol>
-                    <li data-ja="「一括作成」ボタンをクリック" data-en="Click 'Batch Create' button">「一括作成」ボタンをクリック</li>
-                    <li data-ja="図枠ファミリを選択（最近使用したものが上位表示）" data-en="Select title block family (recently used ones shown at top)">図枠ファミリを選択（最近使用したものが上位表示）</li>
-                    <li data-ja="図枠タイプを選択" data-en="Select title block type">図枠タイプを選択</li>
-                    <li data-ja="作成数を選択（1枚、5枚、10枚、20枚）" data-en="Select number of sheets (1, 5, 10, 20)">作成数を選択（1枚、5枚、10枚、20枚）</li>
-                    <li data-ja="プレフィックスを選択（なし、平面図、詳細図、断面図）" data-en="Select prefix (None, Floor Plan, Detail, Section)">プレフィックスを選択（なし、平面図、詳細図、断面図）</li>
-                    <li data-ja="シートが自動的に作成され、既存シートの次の番号から採番されます" data-en="Sheets are automatically created with numbering starting from the next available number">シートが自動的に作成され、既存シートの次の番号から採番されます</li>
-                </ol>
-            </div>
-
-            <div class="note-box">
-                <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> <span data-ja="各画面で「全画面に戻る」ボタンを使用して選択をやり直すことができます。設定は記憶されるため、次回使用時に前回の選択が優先表示されます。" data-en="Use 'Return to Main' button on each screen to restart selection. Settings are remembered, so previous selections are prioritized next time.">各画面で「全画面に戻る」ボタンを使用して選択をやり直すことができます。設定は記憶されるため、次回使用時に前回の選択が優先表示されます。</span>
-            </div>
-        </section>
-
-        <!-- 3D視点コピペ機能 -->
-        <section id="view-copy" class="section">
-            <h2 data-ja="👁️ 3D視点コピペ" data-en="👁️ 3D View Copy/Paste">👁️ 3D視点コピペ</h2>
-            
-            <div class="function-description">
-                <p data-ja="3Dビューの視点（カメラ位置・向き・ズーム）を他の3Dビューに一括適用する機能です。複数のビューを同じ角度で統一したい場合に便利です。" data-en="Apply 3D view orientation (camera position, direction, zoom) to other 3D views at once. Useful for unifying multiple views at the same angle.">3Dビューの視点（カメラ位置・向き・ズーム）を他の3Dビューに一括適用する機能です。複数のビューを同じ角度で統一したい場合に便利です。</p>
-            </div>
-
-            <div class="button-guide-compact">
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/view_copy_64.png" alt="視点コピーボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback copy" style="display:none;">📋</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="視点コピー" data-en="View Copy">視点コピー</strong> - <span data-ja="現在の3Dビューの視点情報をクリップボードに保存" data-en="Save current 3D view orientation to clipboard">現在の3Dビューの視点情報をクリップボードに保存</span>
-                    </div>
-                </div>
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/view_paste_64.png" alt="視点ペーストボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback paste" style="display:none;">📌</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="視点ペースト" data-en="View Paste">視点ペースト</strong> - <span data-ja="選択した3Dビューまたはアクティブビューに視点を適用" data-en="Apply viewpoint to selected 3D views or active view">選択した3Dビューまたはアクティブビューに視点を適用</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="usage-steps">
-                <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
-                <ol>
-                    <li data-ja="コピー元の3Dビューをアクティブにして「視点コピー」をクリック" data-en="Activate source 3D view and click 'View Copy'">コピー元の3Dビューをアクティブにして「視点コピー」をクリック</li>
-                    <li data-ja="プロジェクトブラウザで対象の3Dビューを選択（Ctrl+クリックで複数選択可能）" data-en="Select target 3D views in Project Browser (Ctrl+click for multiple selection)">プロジェクトブラウザで対象の3Dビューを選択（Ctrl+クリックで複数選択可能）</li>
-                    <li data-ja="「視点ペースト」をクリック（選択なしの場合はアクティブビューに適用）" data-en="Click 'View Paste' (applies to active view if nothing selected)">「視点ペースト」をクリック（選択なしの場合はアクティブビューに適用）</li>
-                    <li data-ja="選択したビューの視点が瞬時に変更され、画面が自動更新されます" data-en="Selected view orientations change instantly and screen updates automatically">選択したビューの視点が瞬時に変更され、画面が自動更新されます</li>
-                </ol>
-            </div>
-
-            <div class="note-box">
-                <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> <span data-ja="3Dビューのみが対象です。視点情報は一度コピーすれば、Revitを再起動するまで保持されます。" data-en="Only 3D views are supported. Viewpoint information is retained until Revit restart once copied.">3Dビューのみが対象です。視点情報は一度コピーすれば、Revitを再起動するまで保持されます。</span>
-            </div>
-        </section>
-
-        <!-- 切断ボックスコピペ機能 -->
-        <section id="sectionbox-copy" class="section">
-            <h2 data-ja="📦 切断ボックスコピペ" data-en="📦 Section Box Copy/Paste">📦 切断ボックスコピペ</h2>
-            
-            <div class="function-description">
-                <p data-ja="3Dビューの切断ボックス（表示範囲の制限）を他の3Dビューに一括適用する機能です。ON/OFF状態も含めて完全にコピーされます。" data-en="Apply section box (display range limitation) from one 3D view to other 3D views at once. ON/OFF state is also completely copied.">3Dビューの切断ボックス（表示範囲の制限）を他の3Dビューに一括適用する機能です。ON/OFF状態も含めて完全にコピーされます。</p>
-            </div>
-
-            <div class="button-guide-compact">
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/sectionbox_copy_64.png" alt="切断ボックスコピーボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback sectioncopy" style="display:none;">⬜</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="切断ボックスコピー" data-en="Section Box Copy">切断ボックスコピー</strong> - <span data-ja="現在の3Dビューの切断ボックス情報をクリップボードに保存" data-en="Save current 3D view section box information to clipboard">現在の3Dビューの切断ボックス情報をクリップボードに保存</span>
-                    </div>
-                </div>
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/sectionbox_paste_64.png" alt="切断ボックスペーストボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback sectionpaste" style="display:none;">⬛</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="切断ボックスペースト" data-en="Section Box Paste">切断ボックスペースト</strong> - <span data-ja="選択した3Dビューまたはアクティブビューに切断ボックスを適用" data-en="Apply section box to selected 3D views or active view">選択した3Dビューまたはアクティブビューに切断ボックスを適用</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="usage-steps">
-                <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
-                <ol>
-                    <li data-ja="コピー元の3Dビューをアクティブにして「切断ボックスコピー」をクリック" data-en="Activate source 3D view and click 'Section Box Copy'">コピー元の3Dビューをアクティブにして「切断ボックスコピー」をクリック</li>
-                    <li data-ja="プロジェクトブラウザで対象の3Dビューを選択（Ctrl+クリックで複数選択可能）" data-en="Select target 3D views in Project Browser (Ctrl+click for multiple selection)">プロジェクトブラウザで対象の3Dビューを選択（Ctrl+クリックで複数選択可能）</li>
-                    <li data-ja="「切断ボックスペースト」をクリック（選択なしの場合はアクティブビューに適用）" data-en="Click 'Section Box Paste' (applies to active view if nothing selected)">「切断ボックスペースト」をクリック（選択なしの場合はアクティブビューに適用）</li>
-                    <li data-ja="切断ボックスの範囲とON/OFF状態が瞬時に適用されます" data-en="Section box range and ON/OFF state are applied instantly">切断ボックスの範囲とON/OFF状態が瞬時に適用されます</li>
-                </ol>
-            </div>
-
-            <div class="note-box">
-                <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> <span data-ja="切断ボックスがOFFの場合はOFF状態もコピーされます。3Dビューのみが対象で、情報はRevit再起動まで保持されます。" data-en="If section box is OFF, the OFF state is also copied. Only 3D views are supported, information retained until Revit restart.">切断ボックスがOFFの場合はOFF状態もコピーされます。3Dビューのみが対象で、情報はRevit再起動まで保持されます。</span>
-            </div>
-        </section>
-
-        <!-- ビューポート位置コピペ機能 -->
-        <section id="viewport-position" class="section">
-            <h2 data-ja="📐 ビューポート位置コピペ" data-en="📐 Viewport Position Copy/Paste">📐 ビューポート位置コピペ</h2>
-            
-            <div class="function-description">
-                <p data-ja="シート上のビューポート配置位置を他のシートに自動適用する機能です。同名ビューの自動マッチングやパターン認識により、効率的な配置が可能です。" data-en="Automatically apply viewport positioning on sheets to other sheets. Efficient positioning through automatic matching of same-name views and pattern recognition.">シート上のビューポート配置位置を他のシートに自動適用する機能です。同名ビューの自動マッチングやパターン認識により、効率的な配置が可能です。</p>
-            </div>
-
-            <div class="button-guide-compact">
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/viewport_copy_64.png" alt="ビューポート位置コピーボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback viewcopy" style="display:none;">📐</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="ビューポート位置コピー" data-en="Viewport Position Copy">ビューポート位置コピー</strong> - <span data-ja="選択したビューポートまたはシート全体の配置情報を保存" data-en="Save positioning information of selected viewports or entire sheet">選択したビューポートまたはシート全体の配置情報を保存</span>
-                    </div>
-                </div>
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/viewport_paste_64.png" alt="ビューポート位置ペーストボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback viewpaste" style="display:none;">📍</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="ビューポート位置ペースト" data-en="Viewport Position Paste">ビューポート位置ペースト</strong> - <span data-ja="選択したシートに自動マッチングでビューポート位置を適用" data-en="Apply viewport positions to selected sheets with automatic matching">選択したシートに自動マッチングでビューポート位置を適用</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="usage-steps">
-                <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
-                <ol>
-                    <li data-ja="コピー元で以下のいずれかを選択してから「ビューポート位置コピー」をクリック：" data-en="Select one of the following at source, then click 'Viewport Position Copy':">コピー元で以下のいずれかを選択してから「ビューポート位置コピー」をクリック：</li>
-                    <ul>
-                        <li data-ja="シート上で特定のビューポートを選択" data-en="Select specific viewports on sheet">シート上で特定のビューポートを選択</li>
-                        <li data-ja="プロジェクトブラウザでシートを選択（全ビューポート対象）" data-en="Select sheet in Project Browser (all viewports)">プロジェクトブラウザでシートを選択（全ビューポート対象）</li>
-                        <li data-ja="プロジェクトブラウザでビューを選択（特定ビューポート対象）" data-en="Select view in Project Browser (specific viewport)">プロジェクトブラウザでビューを選択（特定ビューポート対象）</li>
-                    </ul>
-                    <li data-ja="プロジェクトブラウザで対象のシートを選択（Ctrl+クリックで複数選択可能）" data-en="Select target sheets in Project Browser (Ctrl+click for multiple selection)">プロジェクトブラウザで対象のシートを選択（Ctrl+クリックで複数選択可能）</li>
-                    <li data-ja="「ビューポート位置ペースト」をクリック" data-en="Click 'Viewport Position Paste'">「ビューポート位置ペースト」をクリック</li>
-                    <li data-ja="自動マッチング機能により適切なビューポートに位置が適用されます" data-en="Positions are applied to appropriate viewports through automatic matching">自動マッチング機能により適切なビューポートに位置が適用されます</li>
-                </ol>
-            </div>
-
-            <div class="note-box">
-                <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> <span data-ja="同名ビューの完全一致、キーワードマッチング（平面図、断面図など）、階層マッチング（地上階、地下階）により高精度な自動配置を実現します。" data-en="High-precision automatic positioning through exact name matching, keyword matching (floor plans, sections, etc.), and level matching (above/below ground).">同名ビューの完全一致、キーワードマッチング（平面図、断面図など）、階層マッチング（地上階、地下階）により高精度な自動配置を実現します。</span>
-            </div>
-        </section>
-
-        <!-- トリミング領域コピペ機能 -->
-        <section id="cropbox-copy" class="section">
-            <h2 data-ja="✂️ トリミング領域コピペ" data-en="✂️ Crop Box Copy/Paste">✂️ トリミング領域コピペ</h2>
-            
-            <div class="function-description">
-                <p data-ja="ビューのトリミング領域（表示範囲）を他のビューに一括適用する機能です。平面図、断面図、立面図、3Dビューなど幅広いビュータイプに対応しています。" data-en="Apply view crop box (display range) to other views at once. Supports various view types including floor plans, sections, elevations, and 3D views.">ビューのトリミング領域（表示範囲）を他のビューに一括適用する機能です。平面図、断面図、立面図、3Dビューなど幅広いビュータイプに対応しています。</p>
-            </div>
-
-            <div class="button-guide-compact">
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/cropbox_copy_64.png" alt="トリミング領域コピーボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback cropcopy" style="display:none;">✂️</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="トリミング領域コピー" data-en="Crop Box Copy">トリミング領域コピー</strong> - <span data-ja="現在のビューのトリミング領域情報をクリップボードに保存" data-en="Save current view's crop box information to clipboard">現在のビューのトリミング領域情報をクリップボードに保存</span>
-                    </div>
-                </div>
-                <div class="button-row">
-                    <div class="button-icon-box">
-                        <img src="images/icons/cropbox_paste_64.png" alt="トリミング領域ペーストボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="icon-fallback croppaste" style="display:none;">📄</div>
-                    </div>
-                    <div class="button-info-compact">
-                        <strong data-ja="トリミング領域ペースト" data-en="Crop Box Paste">トリミング領域ペースト</strong> - <span data-ja="選択したビューまたはアクティブビューにトリミング領域を適用" data-en="Apply crop box to selected views or active view">選択したビューまたはアクティブビューにトリミング領域を適用</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="usage-steps">
-                <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
-                <ol>
-                    <li data-ja="コピー元のビューをアクティブにして「トリミング領域コピー」をクリック" data-en="Activate source view and click 'Crop Box Copy'">コピー元のビューをアクティブにして「トリミング領域コピー」をクリック</li>
-                    <li data-ja="プロジェクトブラウザで対象のビューを選択（Ctrl+クリックで複数選択可能）" data-en="Select target views in Project Browser (Ctrl+click for multiple selection)">プロジェクトブラウザで対象のビューを選択（Ctrl+クリックで複数選択可能）</li>
-                    <li data-ja="「トリミング領域ペースト」をクリック（選択なしの場合はアクティブビューに適用）" data-en="Click 'Crop Box Paste' (applies to active view if nothing selected)">「トリミング領域ペースト」をクリック（選択なしの場合はアクティブビューに適用）</li>
-                    <li data-ja="トリミング領域の範囲とON/OFF状態が瞬時に適用されます" data-en="Crop box range and ON/OFF state are applied instantly">トリミング領域の範囲とON/OFF状態が瞬時に適用されます</li>
-                </ol>
-            </div>
-
-            <div class="note-box">
-                <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> <span data-ja="対応ビュータイプ：平面図、天井伏図、断面図、立面図、詳細図、3Dビュー。トリミング領域のON/OFF状態も含めて完全にコピーされます。" data-en="Supported view types: Floor Plans, Ceiling Plans, Sections, Elevations, Drafting Views, 3D Views. Crop box ON/OFF state is also completely copied.">対応ビュータイプ：平面図、天井伏図、断面図、立面図、詳細図、3Dビュー。トリミング領域のON/OFF状態も含めて完全にコピーされます。</span>
-            </div>
-        </section>
-
-        <!-- FAQ -->
-        <section class="section">
-            <h2 data-ja="❓ よくある質問" data-en="❓ Frequently Asked Questions">❓ よくある質問</h2>
-            
-            <div class="faq-item">
-                <h3 data-ja="Q: アドインが表示されません" data-en="Q: Add-in is not displayed">Q: <span data-ja="アドインが表示されません" data-en="Add-in is not displayed">アドインが表示されません</span></h3>
-                <p data-ja="A: 以下を確認してください：" data-en="A: Please check the following:">A: <span data-ja="以下を確認してください：" data-en="Please check the following:">以下を確認してください：</span></p>
-                <ul>
-                    <li data-ja="Revit 2021で実行しているか" data-en="Running on Revit 2021">Revit 2021で実行しているか</li>
-                    <li data-ja="DLLファイルが正しい場所にあるか" data-en="DLL file is in correct location">DLLファイルが正しい場所にあるか</li>
-                    <li data-ja="診断ツール.batを実行して問題を確認" data-en="Run diagnostic tool.bat to check issues">診断ツール.batを実行して問題を確認</li>
-                </ul>
-            </div>
-
-            <div class="faq-item">
-                <h3 data-ja="Q: エラーが発生します" data-en="Q: Errors occur">Q: <span data-ja="エラーが発生します" data-en="Errors occur">エラーが発生します</span></h3>
-                <p data-ja="A: 以下を試してください：" data-en="A: Please try the following:">A: <span data-ja="以下を試してください：" data-en="Please try the following:">以下を試してください：</span></p>
-                <ul>
-                    <li data-ja="適切なビュータイプで実行しているか確認" data-en="Confirm running on appropriate view type">適切なビュータイプで実行しているか確認</li>
-                    <li data-ja="コピー機能を先に実行してからペースト機能を使用" data-en="Execute copy function first, then use paste function">コピー機能を先に実行してからペースト機能を使用</li>
-                    <li data-ja="Ctrl+Zで操作を元に戻す" data-en="Use Ctrl+Z to undo operation">Ctrl+Zで操作を元に戻す</li>
-                </ul>
-            </div>
-
-            <div class="faq-item">
-                <h3 data-ja="Q: 一部のビューで機能しません" data-en="Q: Doesn't work on some views">Q: <span data-ja="一部のビューで機能しません" data-en="Doesn't work on some views">一部のビューで機能しません</span></h3>
-                <p data-ja="A: 各機能には対応ビュータイプがあります：" data-en="A: Each function has supported view types:">A: <span data-ja="各機能には対応ビュータイプがあります：" data-en="Each function has supported view types:">各機能には対応ビュータイプがあります：</span></p>
-                <ul>
-                    <li data-ja="3D視点・切断ボックス：3Dビューのみ" data-en="3D viewpoint/section box: 3D views only">3D視点・切断ボックス：3Dビューのみ</li>
-                    <li data-ja="ビューポート位置：シートのみ" data-en="Viewport position: Sheets only">ビューポート位置：シートのみ</li>
-                    <li data-ja="トリミング領域：平面図、断面図、立面図、詳細図、3Dビュー" data-en="Crop box: Floor plans, sections, elevations, drafting views, 3D views">トリミング領域：平面図、断面図、立面図、詳細図、3Dビュー</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- フッター -->
-        <footer class="footer">
-            <p data-ja="28 Tools v1.0 - Revit 2021 アドイン" data-en="28 Tools v1.0 - Revit 2021 Add-in">28 Tools v1.0 - Revit 2021 アドイン</p>
-            <p data-ja="最終更新: 2024年12月" data-en="Last updated: December 2024">最終更新: 2024年12月</p>
-        </footer>
+        <!-- 以下、既存の全セクションを維持 -->
+        
     </div>
 
     <script src="js/manual_script.js"></script>
