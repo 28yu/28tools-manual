@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28 Tools 操作マニュアル</title>
+    <link rel="stylesheet" href="css/manual_style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <header class="header">
+            <div class="header-content">
+                <h1>28 Tools</h1>
+                <p class="subtitle">操作マニュアル</p>
+                <span class="version">v1.0</span>
+            </div>
+        </header>
+
+        <!-- 機能一覧（クリック可能） -->
+        <section class="section">
+            <div class="feature-overview-grid">
+                <a href="#grid-bubble" class="feature-overview-item clickable">
+                    <div class="feature-icons">
+                        <img src="images/icons/both_64.png" alt="両端" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback both" style="display:none;">両</div>
+                        <img src="images/icons/left_64.png" alt="左端" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback left" style="display:none;">左</div>
+                        <img src="images/icons/right_64.png" alt="右端" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback right" style="display:none;">右</div>
+                    </div>
+                    <h4>符号 ON/OFF</h4>
+                    <p>通り芯・レベルの符号表示を瞬時に切り替え</p>
+                </a>
+
+                <a href="#sheet-creation" class="feature-overview-item clickable">
+                    <div class="feature-icons">
+                        <img src="images/icons/sheet_creation_64.png" alt="シート作成" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback sheet" style="display:none;">📄</div>
+                    </div>
+                    <h4>シート一括作成</h4>
+                    <p>図枠を指定して複数シートを効率的に作成</p>
+                </a>
+
+                <a href="#view-copy" class="feature-overview-item clickable">
+                    <div class="feature-icons">
+                        <img src="images/icons/view_copy_64.png" alt="視点コピー" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback copy" style="display:none;">📋</div>
+                        <img src="images/icons/view_paste_64.png" alt="視点ペースト" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback paste" style="display:none;">📌</div>
+                    </div>
+                    <h4>3D視点コピペ</h4>
+                    <p>3Dビューの視点を他のビューに一括適用</p>
+                </a>
+
+                <a href="#sectionbox-copy" class="feature-overview-item clickable">
+                    <div class="feature-icons">
+                        <img src="images/icons/sectionbox_copy_64.png" alt="切断ボックスコピー" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback sectioncopy" style="display:none;">✂️</div>
+                        <img src="images/icons/sectionbox_paste_64.png" alt="切断ボックスペースト" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback sectionpaste" style="display:none;">📦</div>
+                    </div>
+                    <h4>切断ボックスコピペ</h4>
+                    <p>3Dビューの切断範囲を他のビューにコピー</p>
+                </a>
+
+                <a href="#viewport-position" class="feature-overview-item clickable">
+                    <div class="feature-icons">
+                        <img src="images/icons/viewport_copy_64.png" alt="ビューポート位置コピー" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback viewportcopy" style="display:none;">📐</div>
+                        <img src="images/icons/viewport_paste_64.png" alt="ビューポート位置ペースト" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback viewportpaste" style="display:none;">📍</div>
+                    </div>
+                    <h4>ビューポート位置コピペ</h4>
+                    <p>シート上のビューポート配置を他シートに適用</p>
+                </a>
+
+                <a href="#cropbox-copy" class="feature-overview-item clickable">
+                    <div class="feature-icons">
+                        <img src="images/icons/cropbox_copy_64.png" alt="トリミング領域コピー" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback cropboxcopy" style="display:none;">🖼️</div>
+                        <img src="images/icons/cropbox_paste_64.png" alt="トリミング領域ペースト" class="feature-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="feature-icon-fallback cropboxpaste" style="display:none;">🎯</div>
+                    </div>
+                    <h4>トリミング領域コピペ</h4>
+                    <p>ビューのトリミング設定を他ビューに統一</p>
+                </a>
+            </div>
+
+            <div class="ribbon-info">
+                <h3>リボンタブの構成</h3>
+                <div class="screenshot-container">
+                    <img src="images/screenshots/ribbon_tab.png" alt="リボンタブ" class="screenshot" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="screenshot-placeholder" style="display:none;">
+                        📸 28 Tools リボンタブ
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 符号 ON/OFF -->
+        <section id="grid-bubble" class="section">
+            <h2>🔘 符号 ON/OFF</h2>
+            
+            <div class="function-description">
+                <p>通り芯とレベルの符号表示を<strong>ワンクリック</strong>で切り替える機能です。</p>
+            </div>
+
+            <div class="button-guide-compact">
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/both_64.png" alt="両端ボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback both" style="display:none;">両</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>両端</strong> - 通り芯・レベルの両端に符号を表示
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/left_64.png" alt="左端ボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback left" style="display:none;">左</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>左端</strong> - 左端（下端）のみに符号を表示
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/right_64.png" alt="右端ボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback right" style="display:none;">右</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>右端</strong> - 右端（上端）のみに符号を表示
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-steps">
+                <h3>使用方法</h3>
+                <ol>
+                    <li>対象ビュー（平面図・断面図・立面図・天井伏図）を開く</li>
+                    <li>特定要素のみ変更する場合は事前に選択</li>
+                    <li>目的のボタンをクリック</li>
+                </ol>
+            </div>
+
+            <div class="note-box">
+                <strong>💡 ポイント:</strong> 同じボタンを再度クリックすると表示/非表示が切り替わります
+            </div>
+        </section>
+
+        <!-- シート一括作成 -->
+        <section id="sheet-creation" class="section">
+            <h2>📄 シート一括作成</h2>
+            
+            <div class="function-description">
+                <p>図枠を指定して複数のシートを効率的に作成する機能です。</p>
+            </div>
+
+            <div class="button-guide-compact">
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/sheet_creation_64.png" alt="シート作成ボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback sheet" style="display:none;">📄</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>一括作成</strong> - 図枠を選択して複数シートを作成
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-steps">
+                <h3>使用方法</h3>
+                <ol>
+                    <li>「一括作成」ボタンをクリック</li>
+                    <li>図枠ファミリを選択</li>
+                    <li>図枠タイプを選択</li>
+                    <li>作成枚数を選択（1枚・5枚・10枚・20枚）</li>
+                    <li>プレフィックスを選択（なし・平面図・詳細図・断面図）</li>
+                </ol>
+            </div>
+
+            <div class="note-box">
+                <strong>💡 ポイント:</strong> 最近使用した図枠が優先表示され、設定は記憶されます
+            </div>
+        </section>
+
+        <!-- 3D視点コピペ -->
+        <section id="view-copy" class="section">
+            <h2>👁️ 3D視点コピペ</h2>
+            
+            <div class="function-description">
+                <p>3Dビューの視点を他の3Dビューに一括適用する機能です。</p>
+            </div>
+
+            <div class="button-guide-compact">
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/view_copy_64.png" alt="視点コピーボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback copy" style="display:none;">📋</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>視点コピー</strong> - 現在の3Dビューの視点をコピー
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/view_paste_64.png" alt="視点ペーストボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback paste" style="display:none;">📌</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>視点ペースト</strong> - コピーした視点を選択した3Dビューに適用
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-steps">
+                <h3>使用方法</h3>
+                <ol>
+                    <li>コピー元の3Dビューで「視点コピー」をクリック</li>
+                    <li>プロジェクトブラウザで対象の3Dビューを選択</li>
+                    <li>「視点ペースト」をクリック</li>
+                </ol>
+            </div>
+
+            <div class="note-box">
+                <strong>💡 ポイント:</strong> 複数の3Dビューを同時選択して一括適用できます
+            </div>
+        </section>
+
+        <!-- 切断ボックスコピペ -->
+        <section id="sectionbox-copy" class="section">
+            <h2>✂️ 切断ボックスコピペ</h2>
+            
+            <div class="function-description">
+                <p>3Dビューの切断ボックス範囲を他の3Dビューにコピーする機能です。</p>
+            </div>
+
+            <div class="button-guide-compact">
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/sectionbox_copy_64.png" alt="切断ボックスコピーボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback sectioncopy" style="display:none;">✂️</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>切断ボックスコピー</strong> - 現在の切断ボックス範囲をコピー
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/sectionbox_paste_64.png" alt="切断ボックスペーストボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback sectionpaste" style="display:none;">📦</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>切断ボックスペースト</strong> - コピーした範囲を選択した3Dビューに適用
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-steps">
+                <h3>使用方法</h3>
+                <ol>
+                    <li>コピー元の3Dビューで「切断ボックスコピー」をクリック</li>
+                    <li>プロジェクトブラウザで対象の3Dビューを選択</li>
+                    <li>「切断ボックスペースト」をクリック</li>
+                </ol>
+            </div>
+
+            <div class="note-box">
+                <strong>💡 ポイント:</strong> 切断ボックスのON/OFF状態も含めてコピーされます
+            </div>
+        </section>
+
+        <!-- ビューポート位置コピペ -->
+        <section id="viewport-position" class="section">
+            <h2>📐 ビューポート位置コピペ</h2>
+            
+            <div class="function-description">
+                <p>シート上のビューポート位置を他のシートに適用する機能です。</p>
+            </div>
+
+            <div class="button-guide-compact">
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/viewport_copy_64.png" alt="ビューポート位置コピーボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback viewportcopy" style="display:none;">📐</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>ビューポート位置コピー</strong> - 現在のシートのビューポート位置をコピー
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/viewport_paste_64.png" alt="ビューポート位置ペーストボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback viewportpaste" style="display:none;">📍</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>ビューポート位置ペースト</strong> - コピーした位置を選択したシートに適用
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-steps">
+                <h3>使用方法</h3>
+                <ol>
+                    <li>コピー元のシートで「ビューポート位置コピー」をクリック</li>
+                    <li>プロジェクトブラウザで対象のシートを選択</li>
+                    <li>「ビューポート位置ペースト」をクリック</li>
+                </ol>
+            </div>
+
+            <div class="note-box">
+                <strong>💡 ポイント:</strong> 自動マッチング機能により、同名ビューが自動的に配置されます
+            </div>
+        </section>
+
+        <!-- トリミング領域コピペ -->
+        <section id="cropbox-copy" class="section">
+            <h2>🖼️ トリミング領域コピペ</h2>
+            
+            <div class="function-description">
+                <p>ビューのトリミング領域設定を他のビューに統一する機能です。</p>
+            </div>
+
+            <div class="button-guide-compact">
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/cropbox_copy_64.png" alt="トリミング領域コピーボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback cropboxcopy" style="display:none;">🖼️</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>トリミング領域コピー</strong> - 現在のビューのトリミング設定をコピー
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <div class="button-icon-box">
+                        <img src="images/icons/cropbox_paste_64.png" alt="トリミング領域ペーストボタン" class="button-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="icon-fallback cropboxpaste" style="display:none;">🎯</div>
+                    </div>
+                    <div class="button-info-compact">
+                        <strong>トリミング領域ペースト</strong> - コピーした設定を選択したビューに適用
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-steps">
+                <h3>使用方法</h3>
+                <ol>
+                    <li>コピー元のビューで「トリミング領域コピー」をクリック</li>
+                    <li>プロジェクトブラウザで対象のビューを選択</li>
+                    <li>「トリミング領域ペースト」をクリック</li>
+                </ol>
+            </div>
+
+            <div class="note-box">
+                <strong>💡 ポイント:</strong> 平面図・断面図・立面図・詳細図・3Dビューに対応しています
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="troubleshooting" class="section">
+            <h2>❓ よくある質問</h2>
+
+            <div class="faq-compact">
+                <details class="faq-detail">
+                    <summary>機能が実行されない・エラーが出る</summary>
+                    <div class="faq-content">
+                        <p>以下を確認してください：</p>
+                        <ul>
+                            <li>現在のビューが対象ビュータイプか</li>
+                            <li>必要な要素（通り芯・レベル・ビューポートなど）が存在するか</li>
+                            <li>要素の表示設定が有効になっているか</li>
+                            <li>Revit 2021で実行しているか</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="faq-detail">
+                    <summary>コピーしたデータが適用されない</summary>
+                    <div class="faq-content">
+                        <p>コピー操作を先に実行してからペースト操作を行ってください。また、対象ビューが適切なタイプか確認してください。</p>
+                    </div>
+                </details>
+
+                <details class="faq-detail">
+                    <summary>3Dビューで符号ON/OFF機能が使えない</summary>
+                    <div class="faq-content">
+                        <p>符号ON/OFF機能は平面図・断面図・立面図・天井伏図でのみ使用できます。3Dビューでは実行できません。</p>
+                    </div>
+                </details>
+
+                <details class="faq-detail">
+                    <summary>複数の要素を同時に選択したい</summary>
+                    <div class="faq-content">
+                        <p>プロジェクトブラウザで<kbd>Ctrl</kbd> + <kbd>クリック</kbd>により複数選択できます。また、<kbd>Shift</kbd> + <kbd>クリック</kbd>で範囲選択も可能です。</p>
+                    </div>
+                </details>
+
+                <details class="faq-detail">
+                    <summary>操作を元に戻したい</summary>
+                    <div class="faq-content">
+                        <p><kbd>Ctrl</kbd> + <kbd>Z</kbd>で操作を元に戻すことができます。28 Toolsの全ての操作はRevitの標準的な元に戻し機能に対応しています。</p>
+                    </div>
+                </details>
+
+                <details class="faq-detail">
+                    <summary>アドインが表示されない</summary>
+                    <div class="faq-content">
+                        <p>以下を確認してください：</p>
+                        <ul>
+                            <li>Tools28.addinファイルが正しい場所にあるか</li>
+                            <li>Tools28.dllファイルが存在するか</li>
+                            <li>Revitを再起動したか</li>
+                            <li>管理者権限でRevitを実行しているか</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="footer">
+            <p>28 Tools v1.0 - Revit 2021 アドイン</p>
+            <p>全6機能 - 符号ON/OFF・シート一括作成・3D視点コピペ・切断ボックスコピペ・ビューポート位置コピペ・トリミング領域コピペ</p>
+        </footer>
+    </div>
+
+    <!-- スムーススクロール用JavaScript -->
+    <script>
+        // スムーススクロール機能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 機能カードのクリックイベント
+            const featureCards = document.querySelectorAll('.feature-overview-item.clickable');
+            
+            featureCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // スムーススクロール
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // ハイライト効果（オプション）
+                        targetElement.style.backgroundColor = '#e3f2fd';
+                        setTimeout(() => {
+                            targetElement.style.backgroundColor = '';
+                        }, 2000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
