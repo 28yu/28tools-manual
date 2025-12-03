@@ -81,6 +81,8 @@ body {
     margin-bottom: 16px;
     color: #1a1a1a;
     text-align: center;
+    border-bottom: 3px solid #2563eb;
+    padding-bottom: 12px;
 }
 
 .overview-description {
@@ -94,7 +96,7 @@ body {
 /* 機能グリッド */
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 24px;
     margin-top: 32px;
 }
@@ -108,7 +110,12 @@ body {
     text-decoration: none;
     color: inherit;
     transition: all 0.3s ease;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 200px;
+    justify-content: center;
 }
 
 .feature-card:hover {
@@ -124,7 +131,7 @@ body {
 .feature-card h3 {
     font-size: 1.25rem;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin: 16px 0 8px 0;
     color: #1a1a1a;
 }
 
@@ -132,45 +139,86 @@ body {
     color: #6b7280;
     font-size: 0.95rem;
     line-height: 1.5;
+    margin: 0;
 }
 
 /* 機能アイコン */
 .feature-icons {
     display: flex;
-    gap: 8px;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 0;
     justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .feature-icon {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
+    display: block;
 }
 
 .feature-icon-fallback {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    border-radius: 4px;
+    font-size: 24px;
+    border-radius: 6px;
+    font-weight: 600;
 }
 
 /* フォールバックアイコンの色分け */
-.feature-icon-fallback.both { background-color: #dbeafe; color: #2563eb; }
-.feature-icon-fallback.left { background-color: #dcfce7; color: #16a34a; }
-.feature-icon-fallback.right { background-color: #fef2f2; color: #dc2626; }
-.feature-icon-fallback.sheet { background-color: #f3e8ff; color: #9333ea; }
-.feature-icon-fallback.copy { background-color: #fef3c7; color: #d97706; }
-.feature-icon-fallback.paste { background-color: #ecfdf5; color: #059669; }
-.feature-icon-fallback.sectioncopy { background-color: #e0f2fe; color: #0284c7; }
-.feature-icon-fallback.sectionpaste { background-color: #f1f5f9; color: #475569; }
-.feature-icon-fallback.viewcopy { background-color: #fdf4ff; color: #c026d3; }
-.feature-icon-fallback.viewpaste { background-color: #fff7ed; color: #ea580c; }
-.feature-icon-fallback.cropcopy { background-color: #f0fdf4; color: #22c55e; }
-.feature-icon-fallback.croppaste { background-color: #fafaf9; color: #78716c; }
+.feature-icon-fallback.both { 
+    background-color: #dbeafe; 
+    color: #2563eb; 
+}
+.feature-icon-fallback.left { 
+    background-color: #dcfce7; 
+    color: #16a34a; 
+}
+.feature-icon-fallback.right { 
+    background-color: #fef2f2; 
+    color: #dc2626; 
+}
+.feature-icon-fallback.sheet { 
+    background-color: #f3e8ff; 
+    color: #9333ea; 
+}
+.feature-icon-fallback.copy { 
+    background-color: #fef3c7; 
+    color: #d97706; 
+}
+.feature-icon-fallback.paste { 
+    background-color: #ecfdf5; 
+    color: #059669; 
+}
+.feature-icon-fallback.sectioncopy { 
+    background-color: #e0f2fe; 
+    color: #0284c7; 
+}
+.feature-icon-fallback.sectionpaste { 
+    background-color: #f1f5f9; 
+    color: #475569; 
+}
+.feature-icon-fallback.viewcopy { 
+    background-color: #fdf4ff; 
+    color: #c026d3; 
+}
+.feature-icon-fallback.viewpaste { 
+    background-color: #fff7ed; 
+    color: #ea580c; 
+}
+.feature-icon-fallback.cropcopy { 
+    background-color: #f0fdf4; 
+    color: #22c55e; 
+}
+.feature-icon-fallback.croppaste { 
+    background-color: #fafaf9; 
+    color: #78716c; 
+}
 
 /* リボンセクション */
 .ribbon-section {
@@ -532,6 +580,21 @@ body {
     
     .feature-card {
         padding: 20px;
+        min-height: 180px;
+    }
+    
+    .feature-icons {
+        gap: 8px;
+    }
+    
+    .feature-icon,
+    .feature-icon-fallback {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .feature-icon-fallback {
+        font-size: 20px;
     }
     
     .button-guide-compact {
@@ -539,17 +602,7 @@ body {
     }
     
     .button-row {
-        flex-direction: column;
-        align-items: flex-start;
         gap: 12px;
-    }
-    
-    .button-icon-box {
-        align-self: center;
-    }
-    
-    .button-info-compact {
-        text-align: center;
     }
     
     /* 言語切り替えボタン（モバイル） */
@@ -588,6 +641,24 @@ body {
     
     .feature-card h3 {
         font-size: 1.1rem;
+    }
+    
+    .feature-card {
+        min-height: 160px;
+    }
+    
+    .feature-icons {
+        gap: 6px;
+    }
+    
+    .feature-icon,
+    .feature-icon-fallback {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .feature-icon-fallback {
+        font-size: 18px;
     }
     
     .usage-steps ol {
@@ -678,9 +749,4 @@ body {
     .section {
         border-width: 2px;
     }
-}
-
-/* ダークモード対応（将来の拡張用） */
-@media (prefers-color-scheme: dark) {
-    /* 現在は実装しないが、将来の拡張のためのプレースホルダー */
 }
