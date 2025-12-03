@@ -22,28 +22,29 @@ body {
     padding: 40px 20px;
 }
 
-/* ヘッダー */
+/* ヘッダー（シンプル版） */
 .header {
     text-align: center;
-    margin-bottom: 60px;
-    padding: 40px 0;
+    margin-bottom: 40px;
+    padding: 24px 0;
     background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
     color: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
 }
 
 .header h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 16px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .subtitle {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 400;
-    opacity: 0.9;
+    opacity: 0.85;
+    margin: 0;
 }
 
 /* セクション */
@@ -553,16 +554,16 @@ body {
     }
     
     .header {
-        padding: 30px 20px;
-        margin-bottom: 40px;
+        padding: 20px 20px;
+        margin-bottom: 32px;
     }
     
     .header h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
     
     .subtitle {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
     }
     
     .section {
@@ -628,11 +629,16 @@ body {
 
 @media (max-width: 480px) {
     .header h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
     
     .subtitle {
-        font-size: 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .header {
+        padding: 16px 15px;
+        margin-bottom: 24px;
     }
     
     .section h2 {
