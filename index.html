@@ -44,76 +44,317 @@
                 <button class="info-tab" data-tab="version" data-ja="バージョン情報" data-en="Version Info">バージョン情報</button>
             </div>
 
-            <!-- 機能一覧タブ（デフォルト表示） -->
-            <div class="info-content active" id="functions-content">
-                <div class="functions-grid">
-                    <div class="function-card" onclick="scrollToSection('grid-bubble')">
-                        <div class="function-icon">
-                            <img src="images/icons/both_64.png" alt="符号ON/OFF" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="icon-fallback grid" style="display:none;">⚏</div>
-                        </div>
-                        <div class="function-info">
-                            <h3 data-ja="符号 ON/OFF" data-en="Grid Bubble Toggle">符号 ON/OFF</h3>
-                            <p data-ja="通り芯・レベルの符号表示切り替え" data-en="Toggle grid and level bubble display">通り芯・レベルの符号表示切り替え</p>
-                        </div>
-                    </div>
+<!-- 機能一覧タブ（詳細な機能説明版） -->
+<div class="info-content active" id="functions-content">
+    <!-- 符号 ON/OFF -->
+    <section id="grid-bubble" class="section">
+        <h2 data-ja="🔘 符号 ON/OFF" data-en="🔘 Grid Bubble Toggle">🔘 符号 ON/OFF</h2>
+        
+        <div class="function-description">
+            <p data-ja="通り芯・レベルの符号表示を<strong>ワンクリック</strong>で切り替える機能です。選択している通り芯がある場合は選択要素のみ、未選択時は現在のビューの全ての通り芯・レベルに影響します。" 
+               data-en="Toggle grid and level bubble display with <strong>one click</strong>. If grids are selected, only selected elements are affected. If nothing is selected, all grids and levels in the current view are affected.">
+               通り芯・レベルの符号表示を<strong>ワンクリック</strong>で切り替える機能です。選択している通り芯がある場合は選択要素のみ、未選択時は現在のビューの全ての通り芯・レベルに影響します。
+            </p>
+        </div>
 
-                    <div class="function-card" onclick="scrollToSection('sheet-creation')">
-                        <div class="function-icon">
-                            <img src="images/icons/sheet_creation_64.png" alt="シート一括作成" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="icon-fallback sheet" style="display:none;">📋</div>
-                        </div>
-                        <div class="function-info">
-                            <h3 data-ja="シート一括作成" data-en="Bulk Sheet Creation">シート一括作成</h3>
-                            <p data-ja="図枠を指定して複数シートを一括作成" data-en="Create multiple sheets with specified title blocks">図枠を指定して複数シートを一括作成</p>
-                        </div>
-                    </div>
-
-                    <div class="function-card" onclick="scrollToSection('view-copy')">
-                        <div class="function-icon">
-                            <img src="images/icons/view_copy_64.png" alt="3D視点コピペ" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="icon-fallback view" style="display:none;">👁</div>
-                        </div>
-                        <div class="function-info">
-                            <h3 data-ja="3D視点コピペ" data-en="3D View Copy/Paste">3D視点コピペ</h3>
-                            <p data-ja="3Dビューの視点を他のビューにコピー" data-en="Copy 3D view orientation to other views">3Dビューの視点を他のビューにコピー</p>
-                        </div>
-                    </div>
-
-                    <div class="function-card" onclick="scrollToSection('sectionbox-copy')">
-                        <div class="function-icon">
-                            <img src="images/icons/sectionbox_copy_64.png" alt="切断ボックスコピペ" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="icon-fallback sectionbox" style="display:none;">📦</div>
-                        </div>
-                        <div class="function-info">
-                            <h3 data-ja="切断ボックスコピペ" data-en="Section Box Copy/Paste">切断ボックスコピペ</h3>
-                            <p data-ja="3Dビューの切断ボックスをコピー" data-en="Copy 3D view section box settings">3Dビューの切断ボックスをコピー</p>
-                        </div>
-                    </div>
-
-                    <div class="function-card" onclick="scrollToSection('viewport-position')">
-                        <div class="function-icon">
-                            <img src="images/icons/viewport_copy_64.png" alt="ビューポート位置コピペ" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="icon-fallback viewport" style="display:none;">🖼</div>
-                        </div>
-                        <div class="function-info">
-                            <h3 data-ja="ビューポート位置コピペ" data-en="Viewport Position Copy/Paste">ビューポート位置コピペ</h3>
-                            <p data-ja="シート上のビューポート位置をコピー" data-en="Copy viewport positions on sheets">シート上のビューポート位置をコピー</p>
-                        </div>
-                    </div>
-
-                    <div class="function-card" onclick="scrollToSection('cropbox-copy')">
-                        <div class="function-icon">
-                            <img src="images/icons/cropbox_copy_64.png" alt="トリミング領域コピペ" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="icon-fallback cropbox" style="display:none;">✂</div>
-                        </div>
-                        <div class="function-info">
-                            <h3 data-ja="トリミング領域コピペ" data-en="Crop Box Copy/Paste">トリミング領域コピペ</h3>
-                            <p data-ja="ビューのトリミング領域をコピー" data-en="Copy view crop box settings">ビューのトリミング領域をコピー</p>
-                        </div>
-                    </div>
+        <div class="button-guide-compact">
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/both_64.png" alt="両端ボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback grid" style="display:none;">⚏</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="両端" data-en="Both Ends">両端</strong> - 
+                    <span data-ja="通り芯・レベルの両端に符号を表示/非表示" data-en="Show/hide bubbles at both ends of grids and levels">通り芯・レベルの両端に符号を表示/非表示</span>
                 </div>
             </div>
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/left_64.png" alt="左端ボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback grid" style="display:none;">⚏</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="左端" data-en="Left End">左端</strong> - 
+                    <span data-ja="通り芯・レベルの左端（下端）のみに符号を表示/非表示" data-en="Show/hide bubbles only at left end (bottom end) of grids and levels">通り芯・レベルの左端（下端）のみに符号を表示/非表示</span>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/right_64.png" alt="右端ボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback grid" style="display:none;">⚏</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="右端" data-en="Right End">右端</strong> - 
+                    <span data-ja="通り芯・レベルの右端（上端）のみに符号を表示/非表示" data-en="Show/hide bubbles only at right end (top end) of grids and levels">通り芯・レベルの右端（上端）のみに符号を表示/非表示</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="usage-steps">
+            <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
+            <ol>
+                <li data-ja="符号を変更したい通り芯・レベルを選択（任意）" data-en="Select grids/levels to modify (optional)">符号を変更したい通り芯・レベルを選択（任意）</li>
+                <li data-ja="28 Toolsタブの「符号 ON/OFF」パネルから目的のボタンをクリック" data-en="Click the desired button from the 'Grid Bubble Toggle' panel in the 28 Tools tab">28 Toolsタブの「符号 ON/OFF」パネルから目的のボタンをクリック</li>
+                <li data-ja="即座に符号表示が切り替わります" data-en="Bubble display switches immediately">即座に符号表示が切り替わります</li>
+            </ol>
+        </div>
+
+        <div class="note-box">
+            <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> 
+            <span data-ja="選択なしの場合は現在のビューの全要素、選択ありの場合は選択要素のみに適用されます。" data-en="Without selection: applies to all elements in current view. With selection: applies only to selected elements.">選択なしの場合は現在のビューの全要素、選択ありの場合は選択要素のみに適用されます。</span>
+        </div>
+    </section>
+
+    <!-- シート一括作成 -->
+    <section id="sheet-creation" class="section">
+        <h2 data-ja="📋 シート一括作成" data-en="📋 Bulk Sheet Creation">📋 シート一括作成</h2>
+        
+        <div class="function-description">
+            <p data-ja="指定した図枠を使用して複数のシートを<strong>一括作成</strong>する機能です。最近使用した図枠が優先表示され、作成数やプレフィックスも選択できます。" 
+               data-en="<strong>Bulk create</strong> multiple sheets using specified title blocks. Recently used title blocks are prioritized, and you can select the number of sheets and prefixes.">
+               指定した図枠を使用して複数のシートを<strong>一括作成</strong>する機能です。最近使用した図枠が優先表示され、作成数やプレフィックスも選択できます。
+            </p>
+        </div>
+
+        <div class="button-guide-compact">
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/sheet_creation_64.png" alt="シート一括作成ボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback sheet" style="display:none;">📋</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="一括作成" data-en="Bulk Create">一括作成</strong> - 
+                    <span data-ja="図枠・作成数・プレフィックスを選択してシートを一括作成" data-en="Select title block, quantity, and prefix to bulk create sheets">図枠・作成数・プレフィックスを選択してシートを一括作成</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="usage-steps">
+            <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
+            <ol>
+                <li data-ja="「一括作成」ボタンをクリック" data-en="Click the 'Bulk Create' button">「一括作成」ボタンをクリック</li>
+                <li data-ja="図枠ファミリを選択（最近使用した図枠が上位表示）" data-en="Select title block family (recently used blocks shown first)">図枠ファミリを選択（最近使用した図枠が上位表示）</li>
+                <li data-ja="図枠タイプを選択" data-en="Select title block type">図枠タイプを選択</li>
+                <li data-ja="作成数を選択（1枚、5枚、10枚、20枚）" data-en="Select quantity (1, 5, 10, 20 sheets)">作成数を選択（1枚、5枚、10枚、20枚）</li>
+                <li data-ja="プレフィックスを選択（なし、平面図、詳細図、断面図）" data-en="Select prefix (none, floor plan, detail, section)">プレフィックスを選択（なし、平面図、詳細図、断面図）</li>
+                <li data-ja="「作成実行」で一括作成開始" data-en="Click 'Execute Creation' to start bulk creation">「作成実行」で一括作成開始</li>
+            </ol>
+        </div>
+
+        <div class="note-box">
+            <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> 
+            <span data-ja="シート番号は既存シートの次の番号から自動採番されます。設定は記憶され、次回使用時に引き継がれます。" data-en="Sheet numbers are automatically assigned from the next number after existing sheets. Settings are remembered for next use.">シート番号は既存シートの次の番号から自動採番されます。設定は記憶され、次回使用時に引き継がれます。</span>
+        </div>
+    </section>
+
+    <!-- 3D視点コピペ -->
+    <section id="view-copy" class="section">
+        <h2 data-ja="👁 3D視点コピペ" data-en="👁 3D View Copy/Paste">👁 3D視点コピペ</h2>
+        
+        <div class="function-description">
+            <p data-ja="3Dビューの視点（カメラ位置・向き・ズーム）を他の3Dビューに<strong>一括コピー</strong>する機能です。プロジェクトブラウザでの複数選択にも対応しています。" 
+               data-en="<strong>Bulk copy</strong> 3D view orientation (camera position, direction, zoom) to other 3D views. Supports multiple selection in Project Browser.">
+               3Dビューの視点（カメラ位置・向き・ズーム）を他の3Dビューに<strong>一括コピー</strong>する機能です。プロジェクトブラウザでの複数選択にも対応しています。
+            </p>
+        </div>
+
+        <div class="button-guide-compact">
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/view_copy_64.png" alt="視点コピーボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback view" style="display:none;">👁</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="視点コピー" data-en="View Copy">視点コピー</strong> - 
+                    <span data-ja="現在アクティブな3Dビューの視点情報をメモリに保存" data-en="Save current active 3D view orientation to memory">現在アクティブな3Dビューの視点情報をメモリに保存</span>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/view_paste_64.png" alt="視点ペーストボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback view" style="display:none;">👁</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="視点ペースト" data-en="View Paste">視点ペースト</strong> - 
+                    <span data-ja="保存した視点情報を選択した3Dビューまたはアクティブビューに適用" data-en="Apply saved orientation to selected 3D views or active view">保存した視点情報を選択した3Dビューまたはアクティブビューに適用</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="usage-steps">
+            <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
+            <ol>
+                <li data-ja="コピー元の3Dビューをアクティブにして「視点コピー」をクリック" data-en="Activate source 3D view and click 'View Copy'">コピー元の3Dビューをアクティブにして「視点コピー」をクリック</li>
+                <li data-ja="プロジェクトブラウザでコピー先の3Dビューを選択（Ctrl+クリックで複数選択可能）" data-en="Select target 3D views in Project Browser (Ctrl+click for multiple selection)">プロジェクトブラウザでコピー先の3Dビューを選択（Ctrl+クリックで複数選択可能）</li>
+                <li data-ja="「視点ペースト」をクリックして一括適用" data-en="Click 'View Paste' to apply to all selected views">「視点ペースト」をクリックして一括適用</li>
+            </ol>
+        </div>
+
+        <div class="note-box">
+            <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> 
+            <span data-ja="ビュー未選択時はアクティブな3Dビューにペーストされます。画面更新が自動で行われ、即座に結果を確認できます。" data-en="When no view is selected, paste applies to the active 3D view. Screen updates automatically for immediate result confirmation.">ビュー未選択時はアクティブな3Dビューにペーストされます。画面更新が自動で行われ、即座に結果を確認できます。</span>
+        </div>
+    </section>
+
+    <!-- 切断ボックスコピペ -->
+    <section id="sectionbox-copy" class="section">
+        <h2 data-ja="📦 切断ボックスコピペ" data-en="📦 Section Box Copy/Paste">📦 切断ボックスコピペ</h2>
+        
+        <div class="function-description">
+            <p data-ja="3Dビューの切断ボックス設定（範囲・ON/OFF状態）を他の3Dビューに<strong>一括コピー</strong>する機能です。複数のビューで同じ切断範囲を統一できます。" 
+               data-en="<strong>Bulk copy</strong> 3D view section box settings (range and ON/OFF state) to other 3D views. Unify the same section range across multiple views.">
+               3Dビューの切断ボックス設定（範囲・ON/OFF状態）を他の3Dビューに<strong>一括コピー</strong>する機能です。複数のビューで同じ切断範囲を統一できます。
+            </p>
+        </div>
+
+        <div class="button-guide-compact">
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/sectionbox_copy_64.png" alt="切断ボックスコピーボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback sectionbox" style="display:none;">📦</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="切断ボックスコピー" data-en="Section Box Copy">切断ボックスコピー</strong> - 
+                    <span data-ja="現在アクティブな3Dビューの切断ボックス設定をメモリに保存" data-en="Save current active 3D view section box settings to memory">現在アクティブな3Dビューの切断ボックス設定をメモリに保存</span>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/sectionbox_paste_64.png" alt="切断ボックスペーストボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback sectionbox" style="display:none;">📦</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="切断ボックスペースト" data-en="Section Box Paste">切断ボックスペースト</strong> - 
+                    <span data-ja="保存した切断ボックス設定を選択した3Dビューまたはアクティブビューに適用" data-en="Apply saved section box settings to selected 3D views or active view">保存した切断ボックス設定を選択した3Dビューまたはアクティブビューに適用</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="usage-steps">
+            <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
+            <ol>
+                <li data-ja="コピー元の3Dビューをアクティブにして「切断ボックスコピー」をクリック" data-en="Activate source 3D view and click 'Section Box Copy'">コピー元の3Dビューをアクティブにして「切断ボックスコピー」をクリック</li>
+                <li data-ja="プロジェクトブラウザでコピー先の3Dビューを選択（複数選択可能）" data-en="Select target 3D views in Project Browser (multiple selection possible)">プロジェクトブラウザでコピー先の3Dビューを選択（複数選択可能）</li>
+                <li data-ja="「切断ボックスペースト」をクリックして一括適用" data-en="Click 'Section Box Paste' to apply to all selected views">「切断ボックスペースト」をクリックして一括適用</li>
+            </ol>
+        </div>
+
+        <div class="note-box">
+            <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> 
+            <span data-ja="切断ボックスのON/OFF状態も含めて完全にコピーされます。画面更新が自動で行われ、即座に結果を確認できます。" data-en="Section box ON/OFF state is also completely copied. Screen updates automatically for immediate result confirmation.">切断ボックスのON/OFF状態も含めて完全にコピーされます。画面更新が自動で行われ、即座に結果を確認できます。</span>
+        </div>
+    </section>
+
+    <!-- ビューポート位置コピペ -->
+    <section id="viewport-position" class="section">
+        <h2 data-ja="🖼 ビューポート位置コピペ" data-en="🖼 Viewport Position Copy/Paste">🖼 ビューポート位置コピペ</h2>
+        
+        <div class="function-description">
+            <p data-ja="シート上のビューポート位置を他のシートに<strong>一括コピー</strong>する機能です。自動マッチング機能により、同名ビューや類似ビューを自動で検出してコピーします。" 
+               data-en="<strong>Bulk copy</strong> viewport positions on sheets to other sheets. Auto-matching feature automatically detects same-name views or similar views for copying.">
+               シート上のビューポート位置を他のシートに<strong>一括コピー</strong>する機能です。自動マッチング機能により、同名ビューや類似ビューを自動で検出してコピーします。
+            </p>
+        </div>
+
+        <div class="button-guide-compact">
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/viewport_copy_64.png" alt="ビューポート位置コピーボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback viewport" style="display:none;">🖼</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="ビューポート位置コピー" data-en="Viewport Position Copy">ビューポート位置コピー</strong> - 
+                    <span data-ja="選択したビューポートまたはシートの位置情報をメモリに保存" data-en="Save position information of selected viewports or sheets to memory">選択したビューポートまたはシートの位置情報をメモリに保存</span>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/viewport_paste_64.png" alt="ビューポート位置ペーストボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback viewport" style="display:none;">🖼</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="ビューポート位置ペースト" data-en="Viewport Position Paste">ビューポート位置ペースト</strong> - 
+                    <span data-ja="保存した位置情報を選択したシートのビューポートに自動マッチングで適用" data-en="Apply saved position information to viewports on selected sheets with auto-matching">保存した位置情報を選択したシートのビューポートに自動マッチングで適用</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="usage-steps">
+            <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
+            <ol>
+                <li data-ja="コピー元のビューポートを選択するか、シートを選択して「ビューポート位置コピー」をクリック" data-en="Select source viewports or sheet and click 'Viewport Position Copy'">コピー元のビューポートを選択するか、シートを選択して「ビューポート位置コピー」をクリック</li>
+                <li data-ja="プロジェクトブラウザでコピー先のシートを選択（複数選択可能）" data-en="Select target sheets in Project Browser (multiple selection possible)">プロジェクトブラウザでコピー先のシートを選択（複数選択可能）</li>
+                <li data-ja="「ビューポート位置ペースト」をクリックして自動マッチング実行" data-en="Click 'Viewport Position Paste' to execute auto-matching">「ビューポート位置ペースト」をクリックして自動マッチング実行</li>
+            </ol>
+        </div>
+
+        <div class="note-box">
+            <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> 
+            <span data-ja="完全一致・キーワードマッチング・階層マッチングの3段階で自動的にビューを照合します。複数シート選択時は自動処理されます。" data-en="Automatically matches views in 3 stages: exact match, keyword matching, and hierarchy matching. Multiple sheet selection is processed automatically.">完全一致・キーワードマッチング・階層マッチングの3段階で自動的にビューを照合します。複数シート選択時は自動処理されます。</span>
+        </div>
+    </section>
+
+    <!-- トリミング領域コピペ -->
+    <section id="cropbox-copy" class="section">
+        <h2 data-ja="✂ トリミング領域コピペ" data-en="✂ Crop Box Copy/Paste">✂ トリミング領域コピペ</h2>
+        
+        <div class="function-description">
+            <p data-ja="ビューのトリミング領域設定を他のビューに<strong>一括コピー</strong>する機能です。平面図・断面図・立面図・詳細図・3Dビューなど幅広いビュータイプに対応しています。" 
+               data-en="<strong>Bulk copy</strong> view crop box settings to other views. Supports a wide range of view types including floor plans, sections, elevations, detail views, and 3D views.">
+               ビューのトリミング領域設定を他のビューに<strong>一括コピー</strong>する機能です。平面図・断面図・立面図・詳細図・3Dビューなど幅広いビュータイプに対応しています。
+            </p>
+        </div>
+
+        <div class="button-guide-compact">
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/cropbox_copy_64.png" alt="トリミング領域コピーボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback cropbox" style="display:none;">✂</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="トリミング領域コピー" data-en="Crop Box Copy">トリミング領域コピー</strong> - 
+                    <span data-ja="現在アクティブなビューのトリミング領域設定をメモリに保存" data-en="Save current active view crop box settings to memory">現在アクティブなビューのトリミング領域設定をメモリに保存</span>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-icon-box">
+                    <img src="images/icons/cropbox_paste_64.png" alt="トリミング領域ペーストボタン" class="button-icon-img" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="icon-fallback cropbox" style="display:none;">✂</div>
+                </div>
+                <div class="button-info-compact">
+                    <strong data-ja="トリミング領域ペースト" data-en="Crop Box Paste">トリミング領域ペースト</strong> - 
+                    <span data-ja="保存したトリミング領域設定を選択したビューまたはアクティブビューに適用" data-en="Apply saved crop box settings to selected views or active view">保存したトリミング領域設定を選択したビューまたはアクティブビューに適用</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="usage-steps">
+            <h3 data-ja="使用方法" data-en="Usage">使用方法</h3>
+            <ol>
+                <li data-ja="コピー元のビューをアクティブにして「トリミング領域コピー」をクリック" data-en="Activate source view and click 'Crop Box Copy'">コピー元のビューをアクティブにして「トリミング領域コピー」をクリック</li>
+                <li data-ja="プロジェクトブラウザでコピー先のビューを選択（複数選択可能）" data-en="Select target views in Project Browser (multiple selection possible)">プロジェクトブラウザでコピー先のビューを選択（複数選択可能）</li>
+                <li data-ja="「トリミング領域ペースト」をクリックして一括適用" data-en="Click 'Crop Box Paste' to apply to all selected views">「トリミング領域ペースト」をクリックして一括適用</li>
+            </ol>
+        </div>
+
+        <div class="note-box">
+            <strong data-ja="💡 ポイント:" data-en="💡 Tips:">💡 ポイント:</strong> 
+            <span data-ja="トリミング領域のON/OFF状態も自動制御されます。コピー元がOFFの場合はペースト先もOFFに、ONの場合は自動的にONにして領域をコピーします。" data-en="Crop box ON/OFF state is automatically controlled. If source is OFF, target will be set to OFF. If source is ON, target will be automatically set to ON and the region will be copied.">トリミング領域のON/OFF状態も自動制御されます。コピー元がOFFの場合はペースト先もOFFに、ONの場合は自動的にONにして領域をコピーします。</span>
+        </div>
+    </section>
+</div>               
 
             <!-- 動作環境タブ -->
             <div class="info-content" id="system-content">
@@ -312,3 +553,4 @@
     <script src="js/manual_script.js"></script>
 </body>
 </html>
+
