@@ -1,674 +1,1050 @@
-// 言語切り替え機能
-class LanguageSwitcher {
-    constructor() {
-        this.currentLang = localStorage.getItem('28tools-language') || 'ja';
-        this.init();
-        this.initTabs();
-    }
-
-    init() {
-        // DOM要素の取得
-        this.languageBtn = document.getElementById('languageBtn');
-        this.languageDropdown = document.getElementById('languageDropdown');
-        this.checkJa = document.getElementById('checkJa');
-        this.checkEn = document.getElementById('checkEn');
-
-        // 初期言語設定
-        this.setLanguage(this.currentLang);
-        this.updateUI();
-
-        // イベントリスナーの設定
-        this.setupEventListeners();
-
-        // キーボードショートカット
-        this.setupKeyboardShortcuts();
-    }
-
-    setupEventListeners() {
-        // 言語ボタンクリック
-        this.languageBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.toggleDropdown();
-        });
-
-        // 言語オプション選択
-        const languageOptions = document.querySelectorAll('.language-option');
-        languageOptions.forEach(option => {
-            option.addEventListener('click', (e) => {
-                const lang = option.getAttribute('data-lang');
-                this.setLanguage(lang);
-                this.hideDropdown();
-            });
-        });
-
-        // ドロップダウン外クリックで閉じる
-        document.addEventListener('click', () => {
-            this.hideDropdown();
-        });
-
-        // ドロップダウン内クリックで閉じない
-        this.languageDropdown.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
-    }
-
-    setupKeyboardShortcuts() {
-        document.addEventListener('keydown', (e) => {
-            // Alt + L で言語切り替え
-            if (e.altKey && e.key.toLowerCase() === 'l') {
-                e.preventDefault();
-                const newLang = this.currentLang === 'ja' ? 'en' : 'ja';
-                this.setLanguage(newLang);
-            }
-
-            // Escape でドロップダウンを閉じる
-            if (e.key === 'Escape') {
-                this.hideDropdown();
-            }
-        });
-    }
-
-    toggleDropdown() {
-        const isVisible = this.languageDropdown.classList.contains('show');
-        if (isVisible) {
-            this.hideDropdown();
-        } else {
-            this.showDropdown();
-        }
-    }
-
-    showDropdown() {
-        this.languageDropdown.classList.add('show');
-        this.languageBtn.classList.add('active');
-    }
-
-    hideDropdown() {
-        this.languageDropdown.classList.remove('show');
-        this.languageBtn.classList.remove('active');
-    }
-
-    setLanguage(lang) {
-        this.currentLang = lang;
-        localStorage.setItem('28tools-language', lang);
-
-        // HTML lang属性を更新
-        document.documentElement.lang = lang;
-
-        // タイトルを更新
-        const titleElement = document.querySelector('title[data-ja][data-en]');
-        if (titleElement) {
-            const titleText = titleElement.getAttribute(`data-${lang}`);
-            if (titleText) {
-                document.title = titleText;
-            }
-        }
-
-        // meta descriptionを更新
-        const metaDesc = document.querySelector('meta[name="description"][data-ja][data-en]');
-        if (metaDesc) {
-            const descText = metaDesc.getAttribute(`data-${lang}`);
-            if (descText) {
-                metaDesc.setAttribute('content', descText);
-            }
-        }
-
-        // タブのテキストを更新
-        const tabs = document.querySelectorAll('.info-tab[data-ja][data-en]');
-        tabs.forEach(tab => {
-            const text = tab.getAttribute(`data-${lang}`);
-            if (text) {
-                tab.textContent = text;
-            }
-        });
-
-        // 全ての多言語要素を更新
-        const elements = document.querySelectorAll('[data-ja][data-en]');
-        elements.forEach(element => {
-            // タブは既に処理済みなのでスキップ
-            if (element.classList.contains('info-tab')) {
-                return;
-            }
-
-            const text = element.getAttribute(`data-${lang}`);
-            if (text) {
-                if (element.tagName === 'TITLE') {
-                    // タイトルは既に処理済み
-                    return;
-                } else if (element.tagName === 'META') {
-                    // メタタグは既に処理済み
-                    return;
-                } else {
-                    element.textContent = text;
-                }
-            }
-        });
-
-        this.updateUI();
-    }
-
-    updateUI() {
-        // 言語ボタンのテキストを更新
-        const languageText = this.languageBtn.querySelector('.language-text');
-        if (languageText) {
-            languageText.textContent = this.currentLang === 'ja' ? '日本語' : 'English';
-        }
-
-        // チェックマークを更新
-        if (this.checkJa && this.checkEn) {
-            this.checkJa.textContent = this.currentLang === 'ja' ? '✓' : '';
-            this.checkEn.textContent = this.currentLang === 'en' ? '✓' : '';
-        }
-    }
-
-    // タブ機能の初期化
-    initTabs() {
-        const tabs = document.querySelectorAll('.info-tab');
-        const contents = document.querySelectorAll('.info-content');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const targetTab = tab.getAttribute('data-tab');
-                
-                // 全てのタブとコンテンツから active クラスを削除
-                tabs.forEach(t => t.classList.remove('active'));
-                contents.forEach(c => c.classList.remove('active'));
-                
-                // クリックされたタブとそのコンテンツに active クラスを追加
-                tab.classList.add('active');
-                const targetContent = document.getElementById(`${targetTab}-content`);
-                if (targetContent) {
-                    targetContent.classList.add('active');
-                }
-            });
-        });
-
-        // キーボードナビゲーション
-        tabs.forEach((tab, index) => {
-            tab.addEventListener('keydown', (e) => {
-                let targetIndex = index;
-
-                switch (e.key) {
-                    case 'ArrowLeft':
-                        e.preventDefault();
-                        targetIndex = index > 0 ? index - 1 : tabs.length - 1;
-                        break;
-                    case 'ArrowRight':
-                        e.preventDefault();
-                        targetIndex = index < tabs.length - 1 ? index + 1 : 0;
-                        break;
-                    case 'Home':
-                        e.preventDefault();
-                        targetIndex = 0;
-                        break;
-                    case 'End':
-                        e.preventDefault();
-                        targetIndex = tabs.length - 1;
-                        break;
-                    case 'Enter':
-                    case ' ':
-                        e.preventDefault();
-                        tab.click();
-                        return;
-                }
-
-                if (targetIndex !== index) {
-                    tabs[targetIndex].focus();
-                }
-            });
-
-            // タブインデックスを設定
-            tab.setAttribute('tabindex', index === 0 ? '0' : '-1');
-            tab.setAttribute('role', 'tab');
-            tab.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
-        });
-
-        // ARIA属性を設定
-        const tabList = document.querySelector('.info-tabs');
-        if (tabList) {
-            tabList.setAttribute('role', 'tablist');
-        }
-
-        contents.forEach((content, index) => {
-            content.setAttribute('role', 'tabpanel');
-            content.setAttribute('aria-labelledby', tabs[index]?.id || `tab-${index}`);
-        });
-    }
+/* 基本設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-// スムーススクロール機能
-function scrollToSection(sectionId) {
-    const element = document.getElementById(sectionId);
-    if (element) {
-        // タブが開いている場合は機能一覧タブに切り替え
-        const functionsTab = document.querySelector('.info-tab[data-tab="functions"]');
-        const functionsContent = document.getElementById('functions-content');
-        
-        if (functionsTab && functionsContent) {
-            // 全てのタブを非アクティブに
-            document.querySelectorAll('.info-tab').forEach(tab => {
-                tab.classList.remove('active');
-                tab.setAttribute('aria-selected', 'false');
-            });
-            document.querySelectorAll('.info-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // 機能一覧タブをアクティブに
-            functionsTab.classList.add('active');
-            functionsTab.setAttribute('aria-selected', 'true');
-            functionsContent.classList.add('active');
-        }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8fafc;
+}
 
-        // 少し遅延してからスクロール（タブ切り替えアニメーション完了後）
-        setTimeout(() => {
-            element.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }, 100);
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 言語切り替えボタン */
+.language-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.language-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.language-btn:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.language-icon {
+    font-size: 16px;
+}
+
+.language-arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.language-btn.active .language-arrow {
+    transform: rotate(180deg);
+}
+
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 4px;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.language-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #334155;
+    transition: background-color 0.2s ease;
+}
+
+.language-option:hover {
+    background-color: #f1f5f9;
+}
+
+.language-option:first-child {
+    border-radius: 6px 6px 0 0;
+}
+
+.language-option:last-child {
+    border-radius: 0 0 6px 6px;
+}
+
+.language-check {
+    font-size: 12px;
+    color: #10b981;
+    width: 12px;
+}
+
+/* ヘッダー */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 24px 0;
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+/* 情報タブセクション */
+.info-tabs-section {
+    margin-bottom: 60px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* タブナビゲーション */
+.info-tabs {
+    display: flex;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.info-tab {
+    flex: 1;
+    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+    transition: all 0.3s ease;
+    position: relative;
+    border-bottom: 3px solid transparent;
+}
+
+.info-tab:hover {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.info-tab.active {
+    background: white;
+    color: #2563eb;
+    border-bottom-color: #2563eb;
+}
+
+/* タブコンテンツ */
+.info-content {
+    display: none;
+    padding: 32px;
+    background: white;
+    min-height: 300px;
+}
+
+.info-content.active {
+    display: block;
+}
+
+/* 機能一覧グリッド（簡易カード用） */
+.functions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.function-card {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.function-card:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+    transform: translateY(-2px);
+}
+
+.function-card:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+.function-icon {
+    width: 48px;
+    height: 48px;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.function-icon img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.icon-fallback {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    border-radius: 6px;
+    color: white;
+}
+
+.icon-fallback.grid { background: #10b981; }
+.icon-fallback.sheet { background: #3b82f6; }
+.icon-fallback.view { background: #8b5cf6; }
+.icon-fallback.sectionbox { background: #f59e0b; }
+.icon-fallback.viewport { background: #ef4444; }
+.icon-fallback.cropbox { background: #06b6d4; }
+
+.function-info h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.function-info p {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+/* 機能詳細セクション（機能一覧タブ内） */
+#functions-content .section {
+    margin-bottom: 48px;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+}
+
+#functions-content .section:last-child {
+    margin-bottom: 0;
+}
+
+#functions-content .section h2 {
+    color: #1e293b;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #3b82f6;
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#functions-content .function-description {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+}
+
+#functions-content .function-description p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #475569;
+    margin: 0;
+}
+
+#functions-content .button-guide-compact {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 24px 0;
+}
+
+#functions-content .button-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+#functions-content .button-row:last-child {
+    margin-bottom: 0;
+}
+
+#functions-content .button-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+#functions-content .button-icon-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+#functions-content .button-info-compact {
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #475569;
+}
+
+#functions-content .button-info-compact strong {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+#functions-content .usage-steps {
+    margin: 24px 0;
+}
+
+#functions-content .usage-steps h3 {
+    color: #1e293b;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 6px;
+}
+
+#functions-content .usage-steps ol {
+    padding-left: 20px;
+    margin: 12px 0;
+}
+
+#functions-content .usage-steps li {
+    margin: 8px 0;
+    line-height: 1.6;
+    color: #475569;
+}
+
+#functions-content .note-box {
+    background: #eff6ff;
+    border: 1px solid #3b82f6;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+}
+
+#functions-content .note-box strong {
+    color: #1e40af;
+    font-weight: 600;
+}
+
+#functions-content .note-box span {
+    color: #1e40af;
+}
+
+#functions-content .icon-fallback {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    border-radius: 6px;
+    color: white;
+}
+
+/* 情報詳細スタイル */
+.info-detail h3 {
+    color: #1e293b;
+    margin-bottom: 24px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+}
+
+.info-detail h4 {
+    color: #334155;
+    margin: 24px 0 16px 0;
+    font-size: 1.2rem;
+}
+
+/* 動作環境リスト */
+.requirement-list {
+    display: grid;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.requirement-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    border-left: 4px solid #2563eb;
+}
+
+.requirement-item strong {
+    color: #1e293b;
+    font-weight: 600;
+    min-width: 140px;
+}
+
+.requirement-item span {
+    color: #475569;
+    text-align: right;
+}
+
+/* インストール・アンインストール手順 */
+.install-method,
+.uninstall-method {
+    margin: 32px 0;
+    padding: 24px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.install-steps,
+.uninstall-steps {
+    margin: 16px 0;
+    padding-left: 20px;
+}
+
+.install-steps li,
+.uninstall-steps li {
+    margin: 12px 0;
+    line-height: 1.6;
+}
+
+.install-steps code,
+.uninstall-steps code {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em;
+    display: inline-block;
+    margin: 2px 0;
+}
+
+/* トラブルシューティングボックス */
+.troubleshooting-box {
+    margin: 24px 0;
+    padding: 20px;
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    border-radius: 8px;
+}
+
+.troubleshooting-box h4 {
+    color: #92400e;
+    margin-top: 0;
+}
+
+.troubleshooting-box ul {
+    margin: 12px 0;
+    padding-left: 20px;
+}
+
+.troubleshooting-box li {
+    margin: 8px 0;
+    color: #78350f;
+}
+
+/* バージョン情報 */
+.version-info {
+    display: grid;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.version-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #f1f5f9;
+    border-radius: 8px;
+}
+
+.version-item strong {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.version-number {
+    background: #2563eb;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+/* 更新履歴 */
+.changelog {
+    margin: 32px 0;
+}
+
+.changelog h4 {
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+}
+
+.changelog-item {
+    margin: 24px 0;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 4px solid #10b981;
+}
+
+.changelog-version {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #059669;
+    margin-bottom: 4px;
+}
+
+.changelog-date {
+    font-size: 0.9em;
+    color: #6b7280;
+    margin-bottom: 12px;
+}
+
+.changelog-content ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.changelog-content li {
+    margin: 8px 0;
+    color: #374151;
+    line-height: 1.5;
+}
+
+/* サポート情報 */
+.support-info {
+    margin: 32px 0;
+    padding: 24px;
+    background: #eff6ff;
+    border: 1px solid #3b82f6;
+    border-radius: 8px;
+}
+
+.support-info h4 {
+    color: #1e40af;
+    margin-top: 0;
+}
+
+.support-links {
+    display: grid;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.support-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: white;
+    border-radius: 6px;
+}
+
+.support-item strong {
+    color: #1e40af;
+    font-weight: 600;
+    min-width: 100px;
+}
+
+.support-item a {
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.support-item a:hover {
+    text-decoration: underline;
+}
+
+/* 注意ボックス */
+.note-box {
+    background: #eff6ff;
+    border: 1px solid #3b82f6;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+}
+
+.note-box strong {
+    color: #1e40af;
+}
+
+.note-box ul {
+    margin: 12px 0;
+    padding-left: 20px;
+}
+
+.note-box li {
+    margin: 8px 0;
+    color: #1e40af;
+}
+
+/* セクション（機能詳細用・タブ外） */
+.section {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 32px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    color: #1e293b;
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    border-bottom: 3px solid #3b82f6;
+    padding-bottom: 12px;
+}
+
+.function-description {
+    margin-bottom: 32px;
+}
+
+.function-description p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #475569;
+}
+
+/* ボタンガイド（タブ外） */
+.button-guide-compact {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+}
+
+.button-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.button-row:last-child {
+    margin-bottom: 0;
+}
+
+.button-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.button-icon-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.button-info-compact {
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #475569;
+}
+
+.button-info-compact strong {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* 使用手順 */
+.usage-steps {
+    margin: 32px 0;
+}
+
+.usage-steps h3 {
+    color: #1e293b;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+}
+
+.usage-steps ol {
+    padding-left: 24px;
+    margin: 16px 0;
+}
+
+.usage-steps li {
+    margin: 12px 0;
+    line-height: 1.6;
+    color: #475569;
+}
+
+.usage-steps strong {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* スキップリンク */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #000;
+    color: #fff;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 1000;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .language-switcher {
+        top: 15px;
+        right: 15px;
     }
-}
-
-// 画像読み込みエラー処理
-function handleImageError() {
-    document.querySelectorAll('img[onerror]').forEach(img => {
-        if (!img.complete || img.naturalHeight === 0) {
-            const fallback = img.nextElementSibling;
-            if (fallback && fallback.classList.contains('icon-fallback')) {
-                img.style.display = 'none';
-                fallback.style.display = 'flex';
-            }
-        }
-    });
-}
-
-// パフォーマンス最適化：Intersection Observer
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
     
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                    observer.unobserve(img);
-                }
-            });
-        });
-
-        images.forEach(img => imageObserver.observe(img));
-    } else {
-        // Intersection Observer未対応の場合は即座に読み込み
-        images.forEach(img => {
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
-        });
+    .language-btn {
+        padding: 6px 12px;
+        font-size: 13px;
     }
-}
-
-// アクセシビリティ向上：フォーカス管理
-function initAccessibility() {
-    // フォーカストラップ（モーダル用）
-    const trapFocus = (element) => {
-        const focusableElements = element.querySelectorAll(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
-
-        element.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                if (e.shiftKey) {
-                    if (document.activeElement === firstElement) {
-                        e.preventDefault();
-                        lastElement.focus();
-                    }
-                } else {
-                    if (document.activeElement === lastElement) {
-                        e.preventDefault();
-                        firstElement.focus();
-                    }
-                }
-            }
-        });
-    };
-
-    // 言語ドロップダウンのフォーカストラップ
-    const languageDropdown = document.getElementById('languageDropdown');
-    if (languageDropdown) {
-        trapFocus(languageDropdown);
-    }
-
-    // スキップリンクの追加
-    const skipLink = document.createElement('a');
-    skipLink.href = '#main-content';
-    skipLink.textContent = 'メインコンテンツにスキップ';
-    skipLink.className = 'skip-link';
-    skipLink.style.cssText = `
-        position: absolute;
-        top: -40px;
-        left: 6px;
-        background: #000;
-        color: #fff;
-        padding: 8px;
-        text-decoration: none;
-        z-index: 1000;
-        border-radius: 4px;
-    `;
     
-    skipLink.addEventListener('focus', () => {
-        skipLink.style.top = '6px';
-    });
+    .container {
+        padding: 15px;
+    }
     
-    skipLink.addEventListener('blur', () => {
-        skipLink.style.top = '-40px';
-    });
-
-    document.body.insertBefore(skipLink, document.body.firstChild);
-
-    // メインコンテンツにIDを追加
-    const container = document.querySelector('.container');
-    if (container) {
-        container.id = 'main-content';
+    .header h1 {
+        font-size: 2rem;
     }
-}
-
-// エラーハンドリング
-function initErrorHandling() {
-    // 画像読み込みエラーの処理
-    document.addEventListener('error', (e) => {
-        if (e.target.tagName === 'IMG') {
-            const img = e.target;
-            const fallback = img.nextElementSibling;
-            if (fallback && fallback.classList.contains('icon-fallback')) {
-                img.style.display = 'none';
-                fallback.style.display = 'flex';
-            }
-        }
-    }, true);
-
-    // JavaScript エラーの処理
-    window.addEventListener('error', (e) => {
-        console.error('JavaScript Error:', e.error);
-        // 本番環境では適切なエラー報告サービスに送信
-    });
-
-    // Promise rejection の処理
-    window.addEventListener('unhandledrejection', (e) => {
-        console.error('Unhandled Promise Rejection:', e.reason);
-        // 本番環境では適切なエラー報告サービスに送信
-    });
-}
-
-// パフォーマンス監視
-function initPerformanceMonitoring() {
-    if ('performance' in window) {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                if (perfData) {
-                    console.log('Page Load Performance:', {
-                        'DOM Content Loaded': perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
-                        'Load Complete': perfData.loadEventEnd - perfData.loadEventStart,
-                        'Total Load Time': perfData.loadEventEnd - perfData.fetchStart
-                    });
-                }
-            }, 0);
-        });
-    }
-}
-
-// 検索機能（将来の拡張用）
-function initSearch() {
-    const searchInput = document.getElementById('search-input');
-    if (!searchInput) return;
-
-    let searchTimeout;
     
-    searchInput.addEventListener('input', (e) => {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            const query = e.target.value.toLowerCase().trim();
-            performSearch(query);
-        }, 300);
-    });
-}
-
-function performSearch(query) {
-    if (!query) {
-        // 検索クエリが空の場合は全て表示
-        document.querySelectorAll('.function-card, .section').forEach(el => {
-            el.style.display = '';
-        });
-        return;
+    .subtitle {
+        font-size: 1rem;
     }
-
-    // 機能カードの検索
-    document.querySelectorAll('.function-card').forEach(card => {
-        const text = card.textContent.toLowerCase();
-        card.style.display = text.includes(query) ? '' : 'none';
-    });
-
-    // セクションの検索
-    document.querySelectorAll('.section').forEach(section => {
-        const text = section.textContent.toLowerCase();
-        section.style.display = text.includes(query) ? '' : 'none';
-    });
-}
-
-// ダークモード対応（将来の拡張用）
-function initDarkMode() {
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    if (!darkModeToggle) return;
-
-    const isDarkMode = localStorage.getItem('28tools-dark-mode') === 'true';
     
-    if (isDarkMode) {
-        document.body.classList.add('dark-mode');
+    .info-tabs {
+        flex-direction: column;
     }
-
-    darkModeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const isNowDark = document.body.classList.contains('dark-mode');
-        localStorage.setItem('28tools-dark-mode', isNowDark);
-    });
-}
-
-// 印刷対応
-function initPrintSupport() {
-    // 印刷前にすべてのタブコンテンツを表示
-    window.addEventListener('beforeprint', () => {
-        document.querySelectorAll('.info-content').forEach(content => {
-            content.style.display = 'block';
-        });
-    });
-
-    // 印刷後に元の表示に戻す
-    window.addEventListener('afterprint', () => {
-        document.querySelectorAll('.info-content').forEach(content => {
-            if (!content.classList.contains('active')) {
-                content.style.display = 'none';
-            }
-        });
-    });
-}
-
-// 外部リンクの処理
-function initExternalLinks() {
-    document.querySelectorAll('a[href^="http"]').forEach(link => {
-        // 外部リンクに target="_blank" を追加
-        if (!link.hostname.includes('28yu.github.io')) {
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            
-            // アクセシビリティ向上：外部リンクであることを示す
-            if (!link.textContent.includes('(外部リンク)') && !link.textContent.includes('(external)')) {
-                const indicator = document.createElement('span');
-                indicator.textContent = ' ↗';
-                indicator.style.fontSize = '0.8em';
-                indicator.setAttribute('aria-label', '外部リンク');
-                link.appendChild(indicator);
-            }
-        }
-    });
-}
-
-// アニメーション制御
-function initAnimations() {
-    // ユーザーがアニメーションを無効にしている場合は尊重
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     
-    if (prefersReducedMotion.matches) {
-        document.documentElement.style.setProperty('--animation-duration', '0s');
-        document.documentElement.style.setProperty('--transition-duration', '0s');
+    .info-tab {
+        border-radius: 0;
+        border-bottom: 1px solid #e2e8f0;
+        border-left: 3px solid transparent;
     }
-
-    // 設定変更の監視
-    prefersReducedMotion.addEventListener('change', (e) => {
-        if (e.matches) {
-            document.documentElement.style.setProperty('--animation-duration', '0s');
-            document.documentElement.style.setProperty('--transition-duration', '0s');
-        } else {
-            document.documentElement.style.removeProperty('--animation-duration');
-            document.documentElement.style.removeProperty('--transition-duration');
-        }
-    });
+    
+    .info-tab.active {
+        border-bottom-color: #e2e8f0;
+        border-left-color: #2563eb;
+    }
+    
+    .info-tab:last-child {
+        border-bottom: none;
+    }
+    
+    .info-content {
+        padding: 20px;
+    }
+    
+    .requirement-item,
+    .version-item,
+    .support-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .requirement-item span,
+    .support-item a {
+        text-align: left;
+    }
+    
+    .functions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .function-card {
+        padding: 16px;
+    }
+    
+    .function-icon {
+        margin-right: 12px;
+    }
+    
+    .section {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .button-guide-compact {
+        padding: 16px;
+    }
+    
+    .button-row {
+        gap: 12px;
+    }
+    
+    #functions-content .section {
+        padding: 20px;
+        margin-bottom: 32px;
+    }
+    
+    #functions-content .section h2 {
+        font-size: 1.4rem;
+    }
+    
+    #functions-content .button-guide-compact {
+        padding: 16px;
+    }
+    
+    #functions-content .button-row {
+        gap: 12px;
+    }
+    
+    #functions-content .button-icon-box {
+        width: 40px;
+        height: 40px;
+    }
+    
+    #functions-content .button-icon-img {
+        width: 28px;
+        height: 28px;
+    }
+    
+    #functions-content .function-description {
+        padding: 12px;
+    }
 }
 
-// サービスワーカー登録（PWA対応・将来の拡張用）
-function initServiceWorker() {
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => {
-                    console.log('SW registered: ', registration);
-                })
-                .catch(registrationError => {
-                    console.log('SW registration failed: ', registrationError);
-                });
-        });
+@media (max-width: 480px) {
+    .info-tabs {
+        font-size: 12px;
+    }
+    
+    .info-tab {
+        padding: 12px 16px;
+    }
+    
+    .install-method,
+    .uninstall-method {
+        padding: 16px;
+    }
+    
+    .install-steps code,
+    .uninstall-steps code {
+        display: block;
+        margin: 4px 0;
+        word-break: break-all;
+    }
+    
+    .function-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .function-icon {
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+    
+    .header {
+        padding: 16px 0;
+        margin-bottom: 24px;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    #functions-content .button-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    #functions-content .button-icon-box {
+        align-self: center;
+    }
+    
+    #functions-content .button-info-compact {
+        text-align: center;
     }
 }
 
-// メイン初期化関数
-function initializeApp() {
-    try {
-        // 言語切り替え機能とタブ機能の初期化
-        const languageSwitcher = new LanguageSwitcher();
-        
-        // その他の機能初期化
-        handleImageError();
-        initLazyLoading();
-        initAccessibility();
-        initErrorHandling();
-        initPerformanceMonitoring();
-        initSearch();
-        initDarkMode();
-        initPrintSupport();
-        initExternalLinks();
-        initAnimations();
-        
-        // PWA機能（コメントアウト - 必要に応じて有効化）
-        // initServiceWorker();
-        
-        console.log('28 Tools Manual initialized successfully');
-    } catch (error) {
-        console.error('Initialization error:', error);
+/* スムーススクロール */
+html {
+    scroll-behavior: smooth;
+}
+
+/* フォーカス表示 */
+.info-tab:focus,
+.language-btn:focus,
+.language-option:focus,
+.function-card:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* アニメーション */
+.function-card,
+.info-tab,
+.language-btn {
+    transition: all 0.3s ease;
+}
+
+/* 印刷対応 */
+@media print {
+    .language-switcher {
+        display: none;
+    }
+    
+    .info-tabs {
+        display: none;
+    }
+    
+    .info-content {
+        display: block !important;
+        page-break-inside: avoid;
+    }
+    
+    .section,
+    #functions-content .section {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+    
+    #functions-content .button-guide-compact {
+        border: 1px solid #ccc;
+        background: #f9f9f9;
     }
 }
 
-// DOM読み込み完了後に初期化実行
-document.addEventListener('DOMContentLoaded', initializeApp);
+/* CSS変数（将来の拡張用） */
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --secondary-color: #64748b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --info-color: #06b6d4;
+    --background-color: #f8fafc;
+    --surface-color: #ffffff;
+    --border-color: #e2e8f0;
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --animation-duration: 0.3s;
+    --transition-duration: 0.3s;
+}
 
-// ページ表示時の処理（戻るボタン対応）
-window.addEventListener('pageshow', (e) => {
-    if (e.persisted) {
-        // ページがキャッシュから復元された場合の処理
-        handleImageError();
+/* ダークモード対応（将来の拡張用） */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #0f172a;
+        --surface-color: #1e293b;
+        --border-color: #334155;
+        --text-primary: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
     }
-});
+}
 
-// リサイズ対応
-let resizeTimeout;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        // リサイズ後の処理（必要に応じて）
-        console.log('Window resized');
-    }, 250);
-});
-
-// ユーティリティ関数
-const utils = {
-    // デバウンス関数
-    debounce: (func, wait) => {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    },
-
-    // スロットル関数
-    throttle: (func, limit) => {
-        let inThrottle;
-        return function() {
-            const args = arguments;
-            const context = this;
-            if (!inThrottle) {
-                func.apply(context, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    },
-
-    // 要素の表示状態チェック
-    isElementVisible: (element) => {
-        const rect = element.getBoundingClientRect();
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-    },
-
-    // スムーズスクロール（ポリフィル）
-    smoothScrollTo: (element, duration = 500) => {
-        const targetPosition = element.offsetTop;
-        const startPosition = window.pageYOffset;
-        const distance = targetPosition - startPosition;
-        let startTime = null;
-
-        function animation(currentTime) {
-            if (startTime === null) startTime = currentTime;
-            const timeElapsed = currentTime - startTime;
-            const run = ease(timeElapsed, startPosition, distance, duration);
-            window.scrollTo(0, run);
-            if (timeElapsed < duration) requestAnimationFrame(animation);
-        }
-
-        function ease(t, b, c, d) {
-            t /= d / 2;
-            if (t < 1) return c / 2 * t * t + b;
-            t--;
-            return -c / 2 * (t * (t - 2) - 1) + b;
-        }
-
-        requestAnimationFrame(animation);
+/* アニメーション無効化対応 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
-};
-
-// グローバルに公開（デバッグ用）
-window.Tools28Manual = {
-    utils,
-    scrollToSection,
-    LanguageSwitcher
-};
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
