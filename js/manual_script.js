@@ -189,3 +189,88 @@ function detectBrowserLanguage() {
     const browserLang = navigator.language || navigator.userLanguage;
     return browserLang.startsWith('en') ? 'en' : 'ja';
 }
+
+// 既存のLanguageSwitcherクラスに以下のメソッドを追加
+
+class LanguageSwitcher {
+    constructor() {
+        // 既存のコンストラクタ内容...
+        
+        // タブ機能の初期化を追加
+        this.initTabs();
+    }
+
+    // 既存のメソッド...
+
+    // タブ機能の初期化
+    initTabs() {
+        const tabs = document.querySelectorAll('.info-tab');
+        const contents = document.querySelectorAll('.info-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+                
+                // 全てのタブとコンテンツから active クラスを削除
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                
+                // クリックされたタブとそのコンテンツに active クラスを追加
+                tab.classList.add('active');
+                document.getElementById(`${targetTab}-content`).classList.add('active');
+            });
+        });
+    }
+
+    // 言語切り替え時にタブテキストも更新
+    setLanguage(lang) {
+        // 既存の言語切り替え処理...
+        
+        // タブのテキストも更新
+        const tabs = document.querySelectorAll('.info-tab[data-ja][data-en]');
+        tabs.forEach(tab => {
+            const text = tab.getAttribute(`data-${lang}`);
+            if (text) {
+                tab.textContent = text;
+            }
+        });
+        
+        // 既存の要素更新処理...
+        const elements = document.querySelectorAll('[data-ja][data-en]');
+        elements.forEach(element => {
+            if (!element.classList.contains('info-tab')) { // タブは既に処理済み
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    if (element.tagName === 'TITLE') {
+                        document.title = text;
+                    } else {
+                        element.textContent = text;
+                    }
+                }
+            }
+        });
+        
+        // 既存の処理...
+    }
+}
+
+// 既存のDOMContentLoaded処理に追加
+document.addEventListener('DOMContentLoaded', function() {
+    // 既存の初期化処理...
+    
+    // 言語切り替え機能の初期化（タブ機能も含む）
+    const languageSwitcher = new LanguageSwitcher();
+    
+    // 既存のスムーススクロール処理...
+});
+
+// scrollToSection関数も既存のまま維持
+function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
