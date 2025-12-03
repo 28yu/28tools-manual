@@ -188,7 +188,22 @@ body {
     display: block;
 }
 
-/* 機能一覧グリッド（簡易カード用） */
+/* 機能概要セクション */
+.functions-overview {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.functions-overview h3 {
+    color: #1e293b;
+    font-size: 1.4rem;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 8px;
+}
+
+/* 機能一覧グリッド */
 .functions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -218,6 +233,12 @@ body {
 .function-card:focus {
     outline: 2px solid #3b82f6;
     outline-offset: 2px;
+}
+
+.function-card.highlight {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+    transform: translateY(-2px);
 }
 
 .function-icon {
@@ -265,6 +286,19 @@ body {
     font-size: 0.9rem;
     color: #64748b;
     line-height: 1.4;
+}
+
+/* 詳細説明セクション */
+.functions-details {
+    margin-top: 32px;
+}
+
+.functions-details h3 {
+    color: #1e293b;
+    font-size: 1.4rem;
+    margin-bottom: 32px;
+    border-bottom: 2px solid #10b981;
+    padding-bottom: 8px;
 }
 
 /* 機能詳細セクション（機能一覧タブ内） */
@@ -820,6 +854,17 @@ body {
         padding: 20px;
     }
     
+    .functions-overview {
+        margin-bottom: 32px;
+        padding-bottom: 24px;
+    }
+    
+    .functions-overview h3,
+    .functions-details h3 {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+    }
+    
     .requirement-item,
     .version-item,
     .support-item {
@@ -997,6 +1042,16 @@ html {
         border: 1px solid #ccc;
         background: #f9f9f9;
     }
+    
+    .functions-overview {
+        page-break-after: always;
+    }
+    
+    .function-card {
+        break-inside: avoid;
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
 }
 
 /* CSS変数（将来の拡張用） */
@@ -1046,5 +1101,525 @@ html {
     
     html {
         scroll-behavior: auto;
+    }
+}
+
+/* 高コントラスト対応 */
+@media (prefers-contrast: high) {
+    .function-card {
+        border-width: 3px;
+    }
+    
+    .info-tab.active {
+        border-bottom-width: 4px;
+    }
+    
+    .button-guide-compact {
+/* 高コントラスト対応 */
+@media (prefers-contrast: high) {
+    .function-card {
+        border-width: 3px;
+    }
+    
+    .info-tab.active {
+        border-bottom-width: 4px;
+    }
+    
+    .button-guide-compact {
+        border-width: 3px;
+    }
+    
+    .note-box,
+    .troubleshooting-box,
+    .support-info {
+        border-width: 2px;
+    }
+    
+    .language-btn {
+        border-width: 3px;
+    }
+    
+    .requirement-item,
+    .version-item {
+        border-left-width: 6px;
+    }
+}
+
+/* フォーカス可視性の向上 */
+@media (prefers-reduced-motion: no-preference) {
+    .function-card:focus {
+        animation: focusPulse 2s infinite;
+    }
+    
+    @keyframes focusPulse {
+        0%, 100% { box-shadow: 0 0 0 2px #3b82f6; }
+        50% { box-shadow: 0 0 0 4px #3b82f6; }
+    }
+}
+
+/* 大きなフォント対応 */
+@media (min-resolution: 2dppx) {
+    .function-icon img,
+    .button-icon-img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* 縦向きモバイル対応 */
+@media (max-width: 480px) and (orientation: portrait) {
+    .functions-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .function-card {
+        padding: 12px;
+        min-height: 80px;
+    }
+    
+    .function-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .function-icon img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .function-info h3 {
+        font-size: 1rem;
+    }
+    
+    .function-info p {
+        font-size: 0.85rem;
+    }
+}
+
+/* 横向きモバイル対応 */
+@media (max-width: 768px) and (orientation: landscape) {
+    .header {
+        padding: 12px 0;
+        margin-bottom: 20px;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .info-content {
+        padding: 16px;
+    }
+    
+    .functions-overview {
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+    }
+}
+
+/* タブレット対応 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .functions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+    
+    .function-card {
+        padding: 18px;
+    }
+    
+    .info-content {
+        padding: 28px;
+    }
+    
+    #functions-content .section {
+        padding: 28px;
+    }
+}
+
+/* 大画面対応 */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .functions-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+    
+    .function-card {
+        padding: 24px;
+    }
+    
+    .header h1 {
+        font-size: 3rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+}
+
+/* 超大画面対応 */
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1600px;
+    }
+    
+    .info-content {
+        padding: 40px;
+    }
+    
+    #functions-content .section {
+        padding: 40px;
+    }
+    
+    .functions-grid {
+        gap: 28px;
+    }
+}
+
+/* ホバー効果の詳細化 */
+@media (hover: hover) {
+    .function-card:hover .function-icon img {
+        transform: scale(1.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .info-tab:hover {
+        transform: translateY(-1px);
+    }
+    
+    .language-option:hover {
+        transform: translateX(2px);
+    }
+    
+    .support-item:hover {
+        background: #f8fafc;
+        transform: translateY(-1px);
+    }
+}
+
+/* タッチデバイス対応 */
+@media (hover: none) {
+    .function-card:active {
+        transform: scale(0.98);
+    }
+    
+    .info-tab:active {
+        background: #cbd5e1;
+    }
+    
+    .language-btn:active {
+        transform: scale(0.95);
+    }
+}
+
+/* 印刷時の詳細設定 */
+@media print {
+    @page {
+        margin: 2cm;
+        size: A4;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+        color: #000;
+        background: #fff;
+    }
+    
+    .header {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        border: 2px solid #000;
+        margin-bottom: 20pt;
+    }
+    
+    .function-card {
+        border: 1px solid #000;
+        margin-bottom: 10pt;
+        break-inside: avoid;
+    }
+    
+    .section {
+        border: 1px solid #000;
+        margin-bottom: 15pt;
+        break-inside: avoid;
+    }
+    
+    .note-box,
+    .troubleshooting-box {
+        border: 1px solid #000;
+        background: #f9f9f9 !important;
+    }
+    
+    .button-guide-compact {
+        border: 1px solid #000;
+        background: #f5f5f5 !important;
+    }
+    
+    .usage-steps ol {
+        break-inside: avoid;
+    }
+    
+    .changelog-item {
+        break-inside: avoid;
+        border: 1px solid #ccc;
+    }
+    
+    /* 印刷用のページ番号 */
+    @bottom-right {
+        content: counter(page);
+        font-size: 10pt;
+    }
+}
+
+/* 色覚多様性対応 */
+.icon-fallback.grid { 
+    background: #10b981; 
+    border: 2px solid #065f46;
+}
+
+.icon-fallback.sheet { 
+    background: #3b82f6; 
+    border: 2px solid #1e40af;
+}
+
+.icon-fallback.view { 
+    background: #8b5cf6; 
+    border: 2px solid #5b21b6;
+}
+
+.icon-fallback.sectionbox { 
+    background: #f59e0b; 
+    border: 2px solid #d97706;
+}
+
+.icon-fallback.viewport { 
+    background: #ef4444; 
+    border: 2px solid #dc2626;
+}
+
+.icon-fallback.cropbox { 
+    background: #06b6d4; 
+    border: 2px solid #0891b2;
+}
+
+/* エラー状態のスタイル */
+.error-state {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.error-message::before {
+    content: "⚠️";
+    font-size: 1rem;
+}
+
+/* 成功状態のスタイル */
+.success-state {
+    border-color: #10b981 !important;
+    background-color: #f0fdf4;
+}
+
+.success-message {
+    color: #059669;
+    font-size: 0.875rem;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.success-message::before {
+    content: "✅";
+    font-size: 1rem;
+}
+
+/* ローディング状態 */
+.loading-state {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.loading-state::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #e2e8f0;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ツールチップ */
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1e293b;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.tooltip:hover::before,
+.tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+/* スクロールバーのカスタマイズ */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Firefox用スクロールバー */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+/* 選択テキストのスタイル */
+::selection {
+    background: #3b82f6;
+    color: white;
+}
+
+::-moz-selection {
+    background: #3b82f6;
+    color: white;
+}
+
+/* フォーカス時のアウトライン統一 */
+*:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* ボタンのフォーカス時の特別スタイル */
+button:focus,
+.info-tab:focus,
+.language-btn:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* リンクのフォーカス時のスタイル */
+a:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+    text-decoration: underline;
+}
+
+/* 最終調整 */
+.container {
+    position: relative;
+}
+
+/* Z-index管理 */
+.language-switcher { z-index: 1000; }
+.language-dropdown { z-index: 1001; }
+.tooltip::before, .tooltip::after { z-index: 1002; }
+.skip-link { z-index: 1003; }
+
+/* パフォーマンス最適化 */
+.function-card,
+.info-tab,
+.language-btn {
+    will-change: transform, box-shadow;
+}
+
+.function-icon img,
+.button-icon-img {
+    will-change: transform;
+}
+
+/* 最終的なレイアウト調整 */
+.info-tabs-section {
+    position: relative;
+    isolation: isolate;
+}
+
+.functions-overview,
+.functions-details {
+    position: relative;
+}
+
+/* 印刷時のカラー調整 */
+@media print {
+    .function-card,
+    .section,
+    .note-box,
+    .troubleshooting-box,
+    .support-info,
+    .button-guide-compact {
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
     }
 }
